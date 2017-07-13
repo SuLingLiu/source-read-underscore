@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bf333ef-f40a-48ab-9b87-d59c8c31841e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/my-implement/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my-implement/Functions.js" afterPath="$PROJECT_DIR$/my-implement/Functions.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,40 +22,42 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Arrays.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/my-implement/Arrays.js">
+      <file leaf-file-name="Functions.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/my-implement/Functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="1392">
+              <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="3" selection-end-line="90" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Chaining.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/my-implement/Chaining.js">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/my-implement/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="203">
+              <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Collections.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Collections.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/my-implement/Collections.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="715" column="2" lean-forward="false" selection-start-line="715" selection-start-column="2" selection-end-line="715" selection-end-column="2" />
+            <state relative-caret-position="348">
+              <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="34" />
               <folding>
                 <element signature="e#185#479#0" expanded="false" />
                 <element signature="e#1484#1858#0" expanded="false" />
                 <element signature="e#2284#2615#0" expanded="false" />
+                <element signature="e#3150#3620#0" expanded="false" />
                 <element signature="e#4028#4469#0" expanded="false" />
                 <element signature="e#4871#5929#0" expanded="false" />
                 <element signature="e#5286#5908#0" expanded="false" />
                 <element signature="e#5346#5663#0" expanded="false" />
                 <element signature="e#5719#5826#0" expanded="false" />
+                <element signature="e#6543#7634#0" expanded="false" />
                 <element signature="e#6991#7613#0" expanded="false" />
                 <element signature="e#7051#7368#0" expanded="false" />
                 <element signature="e#7424#7531#0" expanded="false" />
@@ -61,44 +65,19 @@
                 <element signature="e#10259#10731#0" expanded="false" />
                 <element signature="e#11888#11892#0" expanded="false" />
                 <element signature="e#19127#20934#0" expanded="false" />
-                <marker date="1499849918365" expanded="false" signature="3150:3620" ph="{...}" />
-                <marker date="1499849918365" expanded="false" signature="6543:7634" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Functions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/my-implement/Functions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Objects.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/my-implement/Objects.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utility.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/my-implement/Utility.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -107,6 +86,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/my-implement/Collections.js" />
+        <option value="$PROJECT_DIR$/my-implement/index.html" />
+        <option value="$PROJECT_DIR$/my-implement/Functions.js" />
       </list>
     </option>
   </component>
@@ -117,10 +98,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="887" />
-    <option name="y" value="178" />
-    <option name="width" value="1349" />
-    <option name="height" value="1063" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -166,9 +147,14 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
-  <component name="RunManager" selected="Node.js.Collections.js">
+  <component name="RunManager" selected="Node.js.Functions.js">
     <configuration default="false" name="Collections.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Collections.js" working-dir="$PROJECT_DIR$/my-implement">
+      <method />
+    </configuration>
+    <configuration default="false" name="Functions.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Functions.js" working-dir="$PROJECT_DIR$/my-implement">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -224,12 +210,14 @@
       <recursive>false</recursive>
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Node.js.Collections.js" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.Functions.js" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.Collections.js" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.Functions.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.Collections.js" />
       </list>
     </recent_temporary>
   </component>
@@ -243,22 +231,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1499825764505</updated>
-      <workItem from="1499825768558" duration="23027000" />
+      <workItem from="1499825768558" duration="42660000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23027000" />
+    <option name="totallyTimeSpent" value="42660000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="887" y="178" width="1349" height="1063" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14752372" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17204301" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19826652" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26218852" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -283,30 +271,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/my-implement/Arrays.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my-implement/Chaining.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my-implement/Functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/my-implement/Objects.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -323,19 +287,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/my-implement/Chaining.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my-implement/Arrays.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/my-implement/Collections.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="715" column="2" lean-forward="false" selection-start-line="715" selection-start-column="2" selection-end-line="715" selection-end-column="2" />
+        <state relative-caret-position="348">
+          <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="34" />
           <folding>
             <element signature="e#185#479#0" expanded="false" />
             <element signature="e#1484#1858#0" expanded="false" />
             <element signature="e#2284#2615#0" expanded="false" />
+            <element signature="e#3150#3620#0" expanded="false" />
             <element signature="e#4028#4469#0" expanded="false" />
             <element signature="e#4871#5929#0" expanded="false" />
             <element signature="e#5286#5908#0" expanded="false" />
             <element signature="e#5346#5663#0" expanded="false" />
             <element signature="e#5719#5826#0" expanded="false" />
+            <element signature="e#6543#7634#0" expanded="false" />
             <element signature="e#6991#7613#0" expanded="false" />
             <element signature="e#7051#7368#0" expanded="false" />
             <element signature="e#7424#7531#0" expanded="false" />
@@ -343,9 +325,23 @@
             <element signature="e#10259#10731#0" expanded="false" />
             <element signature="e#11888#11892#0" expanded="false" />
             <element signature="e#19127#20934#0" expanded="false" />
-            <marker date="1499849918365" expanded="false" signature="3150:3620" ph="{...}" />
-            <marker date="1499849918365" expanded="false" signature="6543:7634" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my-implement/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my-implement/Functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1392">
+          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="3" selection-end-line="90" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
