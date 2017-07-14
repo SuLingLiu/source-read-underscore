@@ -57,8 +57,8 @@
       <file leaf-file-name="Objects.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/my-implement/Objects.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="600" column="0" lean-forward="false" selection-start-line="600" selection-start-column="3" selection-end-line="601" selection-end-column="63" />
+            <state relative-caret-position="565">
+              <caret line="712" column="0" lean-forward="true" selection-start-line="712" selection-start-column="0" selection-end-line="712" selection-end-column="0" />
               <folding>
                 <element signature="e#357#460#0" expanded="false" />
                 <element signature="e#4925#5582#0" expanded="false" />
@@ -68,14 +68,14 @@
                 <element signature="e#6769#6870#0" expanded="false" />
                 <element signature="e#7485#7489#0" expanded="false" />
                 <element signature="e#7729#7845#0" expanded="false" />
-                <element signature="e#7874#8114#0" expanded="false" />
                 <element signature="e#8117#8121#0" expanded="false" />
                 <element signature="e#8272#8355#0" expanded="false" />
                 <element signature="e#8381#8595#0" expanded="false" />
-                <element signature="e#9094#9230#0" expanded="false" />
                 <element signature="e#9233#9237#0" expanded="false" />
                 <element signature="e#11643#11737#0" expanded="false" />
-                <element signature="e#11772#12283#0" expanded="false" />
+                <marker date="1500024872709" expanded="false" signature="7874:8114" ph="{...}" />
+                <marker date="1500024872709" expanded="false" signature="9094:9230" ph="{...}" />
+                <marker date="1500024872709" expanded="false" signature="11772:12283" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -256,12 +256,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1499825764505</updated>
-      <workItem from="1499825768558" duration="65278000" />
+      <workItem from="1499825768558" duration="67454000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65278000" />
+    <option name="totallyTimeSpent" value="67454000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -360,8 +360,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/my-implement/Objects.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="600" column="0" lean-forward="false" selection-start-line="600" selection-start-column="3" selection-end-line="601" selection-end-column="63" />
+        <state relative-caret-position="565">
+          <caret line="712" column="0" lean-forward="true" selection-start-line="712" selection-start-column="0" selection-end-line="712" selection-end-column="0" />
           <folding>
             <element signature="e#357#460#0" expanded="false" />
             <element signature="e#4925#5582#0" expanded="false" />
@@ -371,14 +371,14 @@
             <element signature="e#6769#6870#0" expanded="false" />
             <element signature="e#7485#7489#0" expanded="false" />
             <element signature="e#7729#7845#0" expanded="false" />
-            <element signature="e#7874#8114#0" expanded="false" />
             <element signature="e#8117#8121#0" expanded="false" />
             <element signature="e#8272#8355#0" expanded="false" />
             <element signature="e#8381#8595#0" expanded="false" />
-            <element signature="e#9094#9230#0" expanded="false" />
             <element signature="e#9233#9237#0" expanded="false" />
             <element signature="e#11643#11737#0" expanded="false" />
-            <element signature="e#11772#12283#0" expanded="false" />
+            <marker date="1500024872709" expanded="false" signature="7874:8114" ph="{...}" />
+            <marker date="1500024872709" expanded="false" signature="9094:9230" ph="{...}" />
+            <marker date="1500024872709" expanded="false" signature="11772:12283" ph="{...}" />
           </folding>
         </state>
       </provider>

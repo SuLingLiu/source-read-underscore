@@ -602,4 +602,112 @@ _.isArray = function (obj) {
 // console.log((function(){ return _.isArray(arguments); })());
 
 
+/**
+ * 如果object是一个对象，返回true。需要注意的是JavaScript数组和函数是对象，字符串和数字不是。
+ * @param  {Object}   obj
+ */
+_.isObject = function (obj) {
+    if(!obj) {
+        return false;
+    }
+    var type = obj.constructor;
+    if(type !== String && type !== Number && type !== Boolean) {
+        return true;
+    }
+    return false;
+};
+
+//测试
+// console.log(_.isObject([]));
+// console.log(_.isObject({}));
+// console.log(_.isObject(function(){}));
+// console.log(_.isObject('aa'));
+// console.log(_.isObject(true));
+// console.log(_.isObject(NaN));
+// console.log(_.isObject(1));
+// console.log(_.isObject(null));
+// console.log(_.isObject(undefined));
+
+/**
+ * 如果object是一个参数对象，返回true。
+ * @param  {Object}   obj
+ */
+_.isArguments = function (obj) {
+    if(!obj) {return false;}
+    return obj.callee ? true : false;
+};
+
+//测试
+// console.log(_.isArguments([]));
+// console.log((function(){ return _.isArguments(arguments); })(1, 2, 3));
+
+/**
+ * 如果object是一个函数（Function），返回true。
+ * @param  {Object}   obj
+ */
+_.isFunction = function (obj) {
+    return obj.constructor === Function ? true : false;
+};
+
+//测试
+// console.log(_.isArguments([]));
+// console.log((function(){ return _.isFunction(arguments); })(1, 2, 3));
+
+/**
+* 如果object是一个字符串，返回true。
+* @param  {Object}   obj
+*/
+_.isString = function (obj) {
+    return obj.constructor === String ? true : false;
+};
+
+//测试
+// console.log(_.isString([]));
+// console.log(_.isString(''));
+// console.log((function(){ return _.isString(arguments); })(1, 2, 3));
+
+/**
+ * 如果object是一个数值，返回true (包括 NaN)。
+ * @param  {Object}   obj
+ */
+_.isNumber = function (obj) {
+    return obj.constructor === Number ? true : false;
+};
+
+//测试
+// console.log(_.isNumber([]));
+// console.log(_.isNumber(8.4 * 5));
+// console.log(_.isNumber(NaN));
+// console.log((function(){ return _.isNumber(arguments); })(1, 2, 3));
+
+/**
+ * 如果object是一个有限的数字，返回true。
+ * @param  {Object}   obj
+ */
+_.isFinite = function (obj) {
+    return obj.constructor === Number ? isFinite(obj) : false;
+};
+
+//测试
+// console.log(_.isFinite(1));
+// console.log(_.isFinite(NaN));
+// console.log(_.isFinite(''));
+// console.log(_.isFinite(-Infinity));
+
+/**
+ * 如果object是一个布尔值，返回true，否则返回false。
+ * @param  {Object}   obj
+ */
+_.isBoolean = function (obj) {
+    if(obj === null || obj === undefined) {
+        return false;
+    }
+    return obj.constructor === Boolean ? true : false;
+};
+
+//测试
+// console.log(_.isBoolean(null));
+// console.log(_.isBoolean(true));
+
+
 
