@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bf333ef-f40a-48ab-9b87-d59c8c31841e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/my-implement/a.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/my-implement/b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my-implement/Utility.js" afterPath="$PROJECT_DIR$/my-implement/Utility.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my-implement/index.html" afterPath="$PROJECT_DIR$/my-implement/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my-implement/test.js" afterPath="$PROJECT_DIR$/my-implement/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my-implement/underscore.js" afterPath="$PROJECT_DIR$/my-implement/underscore.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jQuery源码分析课件/1jq.html" afterPath="$PROJECT_DIR$/jQuery源码分析课件/1jq.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jQuery源码分析课件/2jq.html" afterPath="$PROJECT_DIR$/jQuery源码分析课件/2jq.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jQuery源码分析课件/简化JQ的框架.js" afterPath="$PROJECT_DIR$/jQuery源码分析课件/简化JQ的框架.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -124,6 +120,16 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="my-implement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source-read-underscore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source-read-underscore" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -428,7 +434,7 @@
         <state relative-caret-position="1010">
           <caret line="1472" column="9" lean-forward="false" selection-start-line="1472" selection-start-column="4" selection-end-line="1472" selection-end-column="9" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
             <element signature="e#379#426#0" expanded="false" />
             <element signature="e#2200#2851#0" expanded="false" />
             <element signature="e#3132#3335#0" expanded="false" />
@@ -485,7 +491,7 @@
         <state relative-caret-position="638">
           <caret line="473" column="71" lean-forward="false" selection-start-line="473" selection-start-column="71" selection-end-line="473" selection-end-column="71" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
             <element signature="e#732#16370#0" expanded="false" />
           </folding>
         </state>

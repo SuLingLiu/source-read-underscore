@@ -29,7 +29,7 @@ $();
 
 
 
-$('#div1').css();
+$('#div1').css();//实例方法
 $('#div1').html();
 
 var arr = new Array();
@@ -46,7 +46,7 @@ arr.sort();
 $().css();
 $().html();
 
-$.trim();
+$.trim();//工具方法，也叫静态方法
 $.proxy();
 
 
@@ -68,7 +68,7 @@ var cb = $.Callbacks();
 cb.add(fn1);
 cb.add(fn2);
 
-cb.fire();  //1 ,2
+cb.fire();  //只要调用这个函数就会去执行fn1,fn2 1 ,2
 
 cb.remove(fn2);
 
@@ -98,6 +98,7 @@ setTimeout(function(){
 	dfd.resolve();
 },1000);
 
+//先把这个函数存入到dfd中，当dfd.resolve()触发时再去执行函数，这是延迟对象实现的原理
 dfd.done(function(){
 	alert(2);
 });
@@ -109,7 +110,7 @@ dfd.done(function(){
 
 
 
-$('#div1').data('name' , 'hello');
+$('#div1').data('name' , 'hello');//为了防止内存泄漏
 
 $('#div1').data('name');  //hello
 
@@ -120,7 +121,7 @@ $('#div1').data('name');  //hello
 
 
 
-
+//队列只要用在动画处
 $('#div1').animate({left : 100});
 $('#div1').animate({top : 100});
 $('#div1').animate({width : 300});

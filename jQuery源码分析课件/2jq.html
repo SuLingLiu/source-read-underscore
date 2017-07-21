@@ -4,6 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>无标题文档</title>
 <script>
+//**匿名函数自执行的好处是，避免了全局变量的污染
+//**传window 原因：1.window属于js的最顶端，查找速度比较慢，变量的查找是沿着作用域链查找，查找不到会往上继续查找，一级一级往上找，2，为了压缩，像window这样是不能被压缩的，如果是形参则可以被压缩
+//**undefined：不是保留字，在某些低版本浏览器下是可以被修改，传是为了不被修改
 
 /*(function(window){
 	
@@ -17,7 +20,7 @@
 alert(undefined);*/
 
 
-
+//**在严格模式下写代码要非常严格，不然会报错，jq并不推荐写，他会有些问题
 //"use strict";
 //a = 10;
 //var a = 010;
@@ -26,10 +29,14 @@ alert(undefined);*/
 //var iSpeed = 10;
 //a = a + iSpeed;
 
+//**在后面的会这样赋值rootjQuery = jQuery(document);指的是document元素，之所以这样1.便于压缩，直接使用jQuery(document)不便于压缩，2.为了便于理解这个含义，如上面的定义变量iSpeed，很容易知道他的含义，如果只写10，不知其含义
+var rootjQuery;
 
+//**跟dom加载有关
+var readyList;
 
-
-
+//**结果为："undefined"
+var core_strundefined = typeof undefined,
 //window.a == undefined;
 //typeof window.a == 'undefined';
 
