@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bf333ef-f40a-48ab-9b87-d59c8c31841e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jQuery源码分析课件/1jq.html" afterPath="$PROJECT_DIR$/jQuery源码分析课件/1jq.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jQuery源码分析课件/2jq.html" afterPath="$PROJECT_DIR$/jQuery源码分析课件/2jq.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jQuery源码分析课件/简化JQ的框架.js" afterPath="$PROJECT_DIR$/jQuery源码分析课件/简化JQ的框架.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />

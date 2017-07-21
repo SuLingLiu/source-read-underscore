@@ -11,44 +11,60 @@
  *
  * Date: 2013-07-03T13:30Z
  */
+
+//**匿名函数自执行的好处是，避免了全局变量的污染
+//**传window 原因：1.window属于js的最顶端，查找速度比较慢，变量的查找是沿着作用域链查找，查找不到会往上继续查找，一级一级往上找，2，为了压缩，像window这样是不能被压缩的，如果是形参则可以被压缩
+//**undefined：不是保留字，在某些低版本浏览器下是可以被修改，传是为了不被修改
 (function( window, undefined ) {
 
 // Can't do this because several apps including ASP.NET trace
 // the stack via arguments.caller.callee and Firefox dies if
 // you try to trace through "use strict" call chains. (#13335)
 // Support: Firefox 18+
+//**在严格模式下写代码要非常严格，不然会报错，jq并不推荐写，他会有些问题
 //"use strict";
 var
 	// A central reference to the root jQuery(document)
+	//**在后面的会这样赋值rootjQuery = jQuery(document);指的是document元素，
+	//**之所以这样1.便于压缩，直接使用jQuery(document)不便于压缩，2.为了便于理解这个含义，
+	//**如定义变量iSpeed，很容易知道他的含义，如果只写10，不知其含义
 	rootjQuery,
 
 	// The deferred used on DOM ready
+	//**跟dom加载有关
 	readyList,
 
 	// Support: IE9
 	// For `typeof xmlNode.method` instead of `xmlNode.method !== undefined`
+	//**结果为："undefined"，用这个是因为在xmlNode.method不存在的情况下不等于undefined，但是用typeof undefined却是一样的
 	core_strundefined = typeof undefined,
 
 	// Use the correct document accordingly with window argument (sandbox)
+	// **提取变量，便于压缩
 	location = window.location,
 	document = window.document,
 	docElem = document.documentElement,
 
 	// Map over jQuery in case of overwrite
+	// **这里和下面的_$主要用于防冲突，假如有声明了jQuery，就先把他缓存起来
 	_jQuery = window.jQuery,
 
 	// Map over the $ in case of overwrite
 	_$ = window.$,
 
 	// [[Class]] -> type pairs
+	/** 用于类型判断：$.type()
+	class2type = { '[Object String]' : 'string' , '[Object Array]' : 'array' }*/
 	class2type = {},
 
 	// List of deleted data cache ids, so we can reuse them
+	// **在2.0种没什么用处，低版本是跟数据缓存有关
 	core_deletedIds = [],
 
 	core_version = "2.0.3",
 
 	// Save a reference to some core methods
+	// **常用数组，对象，字符的方法，对压缩有大的帮助
 	core_concat = core_deletedIds.concat,
 	core_push = core_deletedIds.push,
 	core_slice = core_deletedIds.slice,

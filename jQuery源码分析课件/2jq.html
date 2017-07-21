@@ -30,13 +30,13 @@ alert(undefined);*/
 //a = a + iSpeed;
 
 //**在后面的会这样赋值rootjQuery = jQuery(document);指的是document元素，之所以这样1.便于压缩，直接使用jQuery(document)不便于压缩，2.为了便于理解这个含义，如上面的定义变量iSpeed，很容易知道他的含义，如果只写10，不知其含义
-var rootjQuery;
+// var rootjQuery;
 
 //**跟dom加载有关
-var readyList;
+// var readyList;
 
-//**结果为："undefined"
-var core_strundefined = typeof undefined,
+//**结果为："undefined"，用这个是因为在xmlNode.method不存在的情况下不等于undefined，但是用typeof undefined却是一样的
+// var core_strundefined = typeof undefined,
 //window.a == undefined;
 //typeof window.a == 'undefined';
 
@@ -54,28 +54,28 @@ var core_strundefined = typeof undefined,
 
 //$() jQuery()
 
-function Aaa(){
-}
-Aaa.prototype.init = function(){
-};
-Aaa.prototype.css = function(){
-};
+// function Aaa(){
+// }
+// Aaa.prototype.init = function(){
+// };
+// Aaa.prototype.css = function(){
+// };
 
-var a1 = new Aaa();
-a1.init();
-a1.css();
+// var a1 = new Aaa();
+// a1.init();
+// a1.css();
 
 
-function jQuery(){
-	return new jQuery.prototype.init();
-}
-jQuery.prototype.init = function(){
-};
-jQuery.prototype.css = function(){
-};
-jQuery.prototype.init.prototype = jQuery.prototype;
+// function jQuery(){
+// 	return new jQuery.prototype.init();
+// }
+// jQuery.prototype.init = function(){
+// };
+// jQuery.prototype.css = function(){
+// };
+// jQuery.prototype.init.prototype = jQuery.prototype;
 
-jQuery().css();
+// jQuery().css();
 
 
 
