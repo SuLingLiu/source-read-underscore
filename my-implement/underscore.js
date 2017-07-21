@@ -45,6 +45,7 @@
     this._wrapped = obj;
   };
 
+
   // Export the Underscore object for **Node.js**, with
   // backwards-compatibility for the old `require()` API. If we're in
   // the browser, add `_` as a global object.
@@ -1547,3 +1548,4 @@
   }
 }.call(this));
 //call(this) 用于此处，是因为在node里全局变量并不是window
+

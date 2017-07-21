@@ -120,3 +120,23 @@ console.log(child2.colors)
 })(window,document);
 
 $('.selector').xxPlugin();
+
+    // 提取变量，便于压缩
+    //
+    // 防止多层包裹
+    //
+    // with，没名字的对象
+    //
+    // 为了执行字符，
+    //
+    // eval不能传参
+    //
+    // create
+    //
+    // 不再初始化，增加不影响父类，
+    //
+    // 一个变量用两次就提出来缓存，因为它可能多次初始化
+    //
+    // undefined 在jquery传进去，防止被修改
+    //
+    // jquery插件的return是为了链式调用
