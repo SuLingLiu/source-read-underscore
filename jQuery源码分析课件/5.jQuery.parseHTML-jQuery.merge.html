@@ -7,10 +7,12 @@
 <script>
 
 $(function(){
+	/*//<script>alert(4)<\/script> 写script的转译，是因为转译的时候会跟script标签配对
+	var str = '<li>1</li><li>2</li><li>3</li><script>alert(4)<\/script>';
 	
-	/*var str = '<li>1</li><li>2</li><li>3</li><script>alert(4)<\/script>';
-	
+	// Query.parseHTML转换成节点数组 ，str一组标签，document指定上下文，第三个默认是false，默认script标签是不能创建到页面的，只有把参数变为true才可以
 	var arr = jQuery.parseHTML(str,document,true);  //['li','li','li']
+	console.log(arr)
 	
 	$.each(arr,function(i){
 		
@@ -18,9 +20,9 @@ $(function(){
 		
 	});*/
 	
-	//var arr = ['a','b'];
-	
-	/*var arr = {
+	// var arr = ['a','b'];
+	// $.merge对外是合并数组，对内还可以合并json,数组和json合并就变成了json了
+/*	var arr = {
 		0 : 'a',
 		1 : 'b',
 		length : 2

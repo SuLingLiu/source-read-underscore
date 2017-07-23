@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+
+
+//$() jQuery()
+
+//一般是这样写
+function Aaa(){
+}
+Aaa.prototype.init = function(){
+};
+Aaa.prototype.css = function(){
+};
+
+var a1 = new Aaa();
+a1.init();
+a1.css();
+
+//为了实现原型链的操作，也为了简化操作，jQuery是这样处理的
+//此时jQuery.prototype.init是构造函数，但是它无法找到jQuery下的方法，所以做了jQuery.prototype.init.prototype = jQuery.prototype;处理
+function jQuery(){
+	return new jQuery.prototype.init();
+}
+jQuery.prototype.init = function(){
+};
+jQuery.prototype.css = function(){
+};
+//把一个对象赋给另外一个对象，他们有引用关系，只要修改另一个，都会改变
+jQuery.prototype.init.prototype = jQuery.prototype;
+
+jQuery().css();
+
+
+</script>
+<script src="jquery-2.0.3.js"></script>
+<script>
+//$()  jQuery()
+</script>
+</head>
+
+<body>
+</body>
+</html>

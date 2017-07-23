@@ -50,8 +50,8 @@
 </script>
 <script src="jquery-2.0.3.js"></script>
 <script>
-
-//alert( $().jquery );
+//版本
+// alert( $().jquery );
 
 //function Aaa(){
 //}
@@ -61,6 +61,7 @@
 /*Aaa.prototype.name = 'hello';
 Aaa.prototype.age = 30;*/
 
+//这种覆盖的写法会改变constructor，所以需要修正一下
 /*Aaa.prototype = {
 	constructor : Aaa,
 	name : 'hello',
@@ -71,9 +72,6 @@ Aaa.prototype.age = 30;*/
 var a1 = new Aaa();
 
 alert( a1.constructor );*/
-
-
-
 
 
 
@@ -91,30 +89,31 @@ $(function(){})
 
 $([])  $({})*/
 
+// jQuery 的写法
 $(function(){
-	
-	//console.log( $('li').css('background','red') );
-	
-	$('li')[1].style.background = 'red';
-	
+	$('li').css('background','red');
+	//$('li')[1].style.background = 'red';//给中间原生的li加样式
 });
 
-/*var aLi = document.getElementsByTagName('li');
-
+// 原生的写法
+var aLi = document.getElementsByTagName('li');
 for(var i=0;i<aLi.length;i++){
 	aLi[i].style.background = 'red';
 }
 
+// jquery的实现过程，因为直接用变量是无法在for循环中找到，所以放到this身上，如下，因为有length属性所以可以进行for循环
+// $('li')这是jquery获取元素的原理
 this = {
-	0 : 'li',
+	0 : 'li',//存的原生的li
 	1 : 'li',
 	2 : 'li',
 	length : 3
 };
 
+// 这是$('li').css()实现的原理
 for(var i=0;i<this.length;i++){
 	this[i].style.background = 'red';
-}*/
+}
 
 </script>
 </head>
@@ -122,8 +121,8 @@ for(var i=0;i<this.length;i++){
 <body>
 <ul>
 	<li></li>
-    <li></li>
-    <li></li>
+  <li></li>
+  <li></li>
 </ul>
 </body>
 </html>

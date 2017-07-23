@@ -9,16 +9,15 @@
 //$('<li>')  $('<li>1</li><li>2</li>')
 
 
-if(){
+if(){//创建 $('#div1') $('.box') $('div')  $('#div1 div.box')
 	$('<li>')   $('<li>1</li><li>2</li>')
 	
 	match = [ null, '<li>', null ];
 	match = [ null, '<li>1</li><li>2</li>', null ];
 	
-}
-else{
+}else{//找原素 $('<li>')  $('<li>1</li><li>2</li>')
 	$('#div1') $('.box') $('div')  $('#div1 div.box')
-	$('<li>hello')
+	$('<li>hello') //但这样写只会生成<li></li>
 	
 	match = null;  //$('.box') $('div')  $('#div1 div.box')
 	
@@ -28,14 +27,20 @@ else{
 	
 }
 
+// ?:表示外层括号不是子项，所以下面有两个子项
+var rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/
+// exec() 方法用于检索字符串中的正则表达式的匹配。RegExpObject.exec(string),返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null。
+// 数组的第一值是匹配的内容，第二个是：第 1 个子表达式相匹配的文本，依次内推
+match = rquickExpr.exec( selector );
 
 
 //if() 能进入的有:  $('<li>')  $('#div1')  
 //进一步判断 : if(){  $('<li>')  }  else {  $('#div1')   }
 
-//$('<li>',$(document))   
+//$('<li>',$(document))
 
-
+// $('<li>',document)
+// 创建iframe里的标签$('<li>',contentWindow.document)
 
 
 $('<li>1</li><li>2</li>').appendTo( ' ul ' );

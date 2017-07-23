@@ -71,9 +71,9 @@ var
 	core_indexOf = core_deletedIds.indexOf,
 	core_toString = class2type.toString,
 	core_hasOwn = class2type.hasOwnProperty,
-	core_trim = core_version.trim,
+	core_trim = core_version.trim,//去前后空格，低版本ie浏览器不支持
 
-	// Define a local copy of jQuery
+	// Define a local copy of jQuery 参考2.jq构造函数.html
 	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
 		return new jQuery.fn.init( selector, context, rootjQuery );
@@ -81,79 +81,116 @@ var
 
 	// Used for matching numbers
 	core_pnum = /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,
+	// 用于匹配数字，包括正数、负数包括小数点、科学计数法，在css方法会使用
 
-	// Used for splitting on whitespace
 	core_rnotwhite = /\S+/g,
+	// Used for splitting on whitespace 分割空格
 
 	// A simple way to check for HTML strings
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
 	// Strict HTML recognition (#11290: must start with <)
+	// 前面匹配的是一个标签，后面匹配的是id,XSS是注入木马的方式，通过输入框上传或者执行一段脚本，做hash值改变的时候也会有这个问题，如?#<div>这样就很危险，做为id来处理，所以做了这样的处理只识别正真的id,可以防注入
+	// 匹配<p>aaaa 或 #div1
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
 
-	// Match a standalone tag
+	// Match a standalone tag 匹配一个独立的标签，如：<p></p>  <div></div>
 	rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
 
 	// Matches dashed string for camelizing
+	// 匹配ie的前缀，如：-webkit-margin-left : webkitMarginLeft，-ms-margin-left : MsMarginLeft，-webkit的形式等形式第一字母不需要大写，但ie的前缀需要大写
 	rmsPrefix = /^-ms-/,
+	// 作用于驼峰式-后面的字母转大写,数字的-2d会转2d去掉-
 	rdashAlpha = /-([\da-z])/gi,
 
 	// Used by jQuery.camelCase as callback to replace()
+	// 转驼峰的回调函数
 	fcamelCase = function( all, letter ) {
 		return letter.toUpperCase();
 	},
 
 	// The ready event handler and self cleanup method
+	// dom加载成功后的回调函数
 	completed = function() {
 		document.removeEventListener( "DOMContentLoaded", completed, false );
 		window.removeEventListener( "load", completed, false );
 		jQuery.ready();
 	};
 
+// 参考3.jQuery.fn.html
 jQuery.fn = jQuery.prototype = {
-	// The current version of jQuery being used
+	// The current version of jQuery being used 版本
 	jquery: core_version,
 
+	// 修正指向问题，因为写的是简写的方式，覆盖式，所以需要修正
 	constructor: jQuery,
+	/**
+	 * [init description]
+	 * @param  {[String]} selector   [选择器]
+	 * @param  {[String]} context    [执行上下文]
+	 * @param  {[]} rootjQuery [根节点]
+	 * @return {[type]}            [description]
+	 */
+	//$('li','ul')
 	init: function( selector, context, rootjQuery ) {
 		var match, elem;
 
 		// HANDLE: $(""), $(null), $(undefined), $(false)
+		// 先对不正确的进行处理$(""), $(null), $(undefined), $(false)
 		if ( !selector ) {
 			return this;
 		}
 
 		// Handle HTML strings
+		// $('#div1') $('.box') $('div')  $('#div1 div.box')
+		// $('<li>')  $('<li>1</li><li>2</li>')
+		// 参考4.jq-selector-string.html
 		if ( typeof selector === "string" ) {
+			// 创建 $('<li>')  $('<li>1</li><li>2</li>')
 			if ( selector.charAt(0) === "<" && selector.charAt( selector.length - 1 ) === ">" && selector.length >= 3 ) {
 				// Assume that strings that start and end with <> are HTML and skip the regex check
+				// match = [ null, '<li>', null ]; match = [ null, '<li>1</li><li>2</li>', null ];
 				match = [ null, selector, null ];
-
+				
 			} else {
+				// 找元素 $('#div1') $('.box') $('div')  $('#div1 div.box')
+				// match = null;  //$('.box') $('div')  $('#div1 div.box')
+				// match = ['#div1',null,'div1'];  //$('#div1')
+				// match = ['<li>hello','<li>',null];  //$('<li>hello')
+				// rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,匹配的是<p>aaaa 或 #div1
 				match = rquickExpr.exec( selector );
 			}
 
-			// Match html or make sure no context is specified for #id
+			// Match html or make sure no context is specified for #id 
+			// 创建标签和id 能进入的有:  $('<li>')  $('#div1')
 			if ( match && (match[1] || !context) ) {
+				// 进一步判断 : if(){  $('<li>')  }  else {  $('#div1')   }
 
 				// HANDLE: $(html) -> $(array)
 				if ( match[1] ) {
+					// 这里作用可以写成 $('<li>',document)，也可以创建iframe里的标签$('<li>',contentWindow.document)，但是没什么太大用，下面的处理是因为有可能会输入原生的document或者是$(document),最终得到的都是原生的doucument
 					context = context instanceof jQuery ? context[0] : context;
 
 					// scripts is true for back-compat
+					// Query.parseHTML转换成节点数组 参考5.jQuery.parseHTML-jQuery.merge.html
+					// jQuery.merge把数组再转换成json
 					jQuery.merge( this, jQuery.parseHTML(
 						match[1],
 						context && context.nodeType ? context.ownerDocument || context : document,
 						true
 					) );
 
-					// HANDLE: $(html, props)
+					// HANDLE: $(html, props) $('<li></li>',{title : 'hi',html : 'abcd',css : {background:'red'}})
+					// rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/， 匹配一个独立的标签，如：<p></p> ，<div></div>，只针对于<li>或者<li></li>，这样的多标签<li></li><li></li>是不行的，第二参数必须是json
 					if ( rsingleTag.test( match[1] ) && jQuery.isPlainObject( context ) ) {
 						for ( match in context ) {
 							// Properties of context are called as methods if possible
+							// 匹配this下是否有html,title等方法，如果有则直接调用
 							if ( jQuery.isFunction( this[ match ] ) ) {
+								// 如this.html('abcd');
 								this[ match ]( context[ match ] );
 
 							// ...and otherwise set as attributes
+							// 如果没有这个方法则直接变成增加属性
 							} else {
 								this.attr( match, context[ match ] );
 							}
@@ -189,14 +226,15 @@ jQuery.fn = jQuery.prototype = {
 				return this.constructor( context ).find( selector );
 			}
 
-		// HANDLE: $(DOMElement)
+		// HANDLE: $(DOMElement) 处理$(this)  $(document)
 		} else if ( selector.nodeType ) {
 			this.context = this[0] = selector;
 			this.length = 1;
 			return this;
 
 		// HANDLE: $(function)
-		// Shortcut for document ready
+		// Shortcut for document ready 
+		// 处理函数$(function(){})
 		} else if ( jQuery.isFunction( selector ) ) {
 			return rootjQuery.ready( selector );
 		}
@@ -206,6 +244,7 @@ jQuery.fn = jQuery.prototype = {
 			this.context = selector.context;
 		}
 
+		// 处理$([])  $({})
 		return jQuery.makeArray( selector, this );
 	},
 
