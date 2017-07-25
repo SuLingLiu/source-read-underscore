@@ -282,7 +282,7 @@ jQuery.fn = jQuery.prototype = {
 			this.toArray() :
 
 			// Return just the object
-			//get 的参数如果是负数表示从后往前找原素
+			//get 的参数如果是负数表示从后往前找原素，下面的中括号是表示json下的属性
 			( num < 0 ? this[ this.length + num ] : this[ num ] );
 	},
 
