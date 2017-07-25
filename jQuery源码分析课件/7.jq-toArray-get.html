@@ -8,14 +8,17 @@
 
 
 $(function(){
-	
-	//console.log( $('div').toArray() );
+	// console.log($('div'));
+	// console.log( $('div').toArray() );
 	
 	//$('div') : { 0 : div , 1 : div , 2 : div , length : 3 }
 	
-	//$('div').toArray() : [div,div,div]
+	//$('div').toArray() : [div,div,div] 转成数组就可以用数组的方法，里面的值是原生的元素
 	
-	$('div').get(-1).innerHTML = '222222222';
+	console.log($('div').get());//get()什么都不传返回的是一个转换成原生的数组
+	//get 的参数如果是负数表示从后往前找原素
+	
+	// $('div').get(-1).innerHTML = '222222222';
 	
 	/*for(var i=0;i<$('div').get().length;i++){
 		$('div').get(i).innerHTML = '222222';

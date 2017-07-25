@@ -5,35 +5,36 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="zepto.js"></script>
+    <script src="callbacks.js"></script>
 </head>
 
 <body>
     <script>
-        $(document).on('ajaxComplete', function (e, xhr, options) {})
-        $(document).trigger('ajaxStart', function () {
-            alert(8)
-        })
-        $.ajax({
-            type: 'GET',
-            url: '/a.json',
-            // data to be added to query string:
-            data: {
-                name: 'Zepto.js'
-            },
-            // type of data we are expecting in return:
-            dataType: 'json',
-            timeout: 300,
-            context: $('body'),
-            success: function (data) {
-                // Supposing this JSON payload was received:
-                //   {"project": {"id": 42, "html": "<div>..." }}
-                // append the HTML to context object.
-                //            this.append(data.project.html)
-            },
-            error: function (xhr, type) {
-                alert('Ajax error!')
-            }
-        })
+        /*$(document).on('ajaxComplete', function (e, xhr, options) {})
+                                                        $(document).trigger('ajaxStart', function () {
+                                                            alert(8)
+                                                        })
+                                                        $.ajax({
+                                                            type: 'GET',
+                                                            url: '/a.json',
+                                                            // data to be added to query string:
+                                                            data: {
+                                                                name: 'Zepto.js'
+                                                            },
+                                                            // type of data we are expecting in return:
+                                                            dataType: 'json',
+                                                            timeout: 300,
+                                                            context: $('body'),
+                                                            success: function (data) {
+                                                                // Supposing this JSON payload was received:
+                                                                //   {"project": {"id": 42, "html": "<div>..." }}
+                                                                // append the HTML to context object.
+                                                                //            this.append(data.project.html)
+                                                            },
+                                                            error: function (xhr, type) {
+                                                                alert('Ajax error!')
+                                                            }
+                                                        })*/
 
         //    $.ajax({
         //        type: 'GET',
@@ -43,6 +44,18 @@
         //        data: { name: 'Zepto.js' },
         //        contentType: 'application/json'
         //    })
+
+        function fn1() {
+            console.log(1)
+        }
+
+        function fn2() {
+            console.log(2)
+        }
+        var callbacks = $.Callbacks('memory');
+        callbacks.add(fn1);
+        callbacks.fire(); // 必须先fire
+        callbacks.add(fn2); // 此时会立即触发fn2
     </script>
 </body>
 

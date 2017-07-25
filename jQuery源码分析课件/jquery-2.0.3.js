@@ -205,8 +205,11 @@ jQuery.fn = jQuery.prototype = {
 
 					// Check parentNode to catch when Blackberry 4.6 returns
 					// nodes that are no longer in the document #6963
+					// 在Blackberry 4.6这个浏览器只判断elem存在不行，还需要进一步判断，在克隆节点的时候有这个问题
+					// 一个原素在页面中存在就一定有父级
 					if ( elem && elem.parentNode ) {
 						// Inject the element directly into the jQuery object
+						// 将元素直接注入jQuery对象
 						this.length = 1;
 						this[0] = elem;
 					}
@@ -217,34 +220,42 @@ jQuery.fn = jQuery.prototype = {
 				}
 
 			// HANDLE: $(expr, $(...))
+			// rootjQuery : $(document)  $(document).find('ul li.box');  //find -> sizzle
+			// $('ul',$(document)).find('li');==> jQuery(document).find();
+			// $(document)表示context.jquery为真
 			} else if ( !context || context.jquery ) {
 				return ( context || rootjQuery ).find( selector );
 
 			// HANDLE: $(expr, context)
 			// (which is just equivalent to: $(context).find(expr)
+			// $('ul',document).find('li'); ==> jQuery(document).find();
 			} else {
 				return this.constructor( context ).find( selector );
 			}
+			//以上else if 和else 返回的都是jQuery(document).find();主要是为了处理复杂的选择器，通过find来实现。并处理了原生和jquery的document。
 
 		// HANDLE: $(DOMElement) 处理$(this)  $(document)
+		// 是节点有nodeType，节点没有执行上线文，所以context是自己
 		} else if ( selector.nodeType ) {
+			// console.log(selector)
 			this.context = this[0] = selector;
 			this.length = 1;
 			return this;
 
 		// HANDLE: $(function)
 		// Shortcut for document ready 
-		// 处理函数$(function(){})
+		// 处理函数$(function(){})充当文档加载 $(function(){}); $(document).ready(function(){});
 		} else if ( jQuery.isFunction( selector ) ) {
 			return rootjQuery.ready( selector );
 		}
 
+		//$('#div1')  <-  $( $('#div1') )是为了处理$( $('#div1') )这种情况
 		if ( selector.selector !== undefined ) {
 			this.selector = selector.selector;
 			this.context = selector.context;
 		}
 
-		// 处理$([])  $({})
+		// 处理$([])  $({}) makeArray把类数组转成正真的数组,参考6.jq-makeArray.html
 		return jQuery.makeArray( selector, this );
 	},
 
@@ -254,12 +265,16 @@ jQuery.fn = jQuery.prototype = {
 	// The default length of a jQuery object is 0
 	length: 0,
 
+	// 转数组，实例方法只能给jquery对象用，makeArray是工具方法，可以给jquery用，也可以给原生的js用 
+	// 参考7.jq-toArray-get.html
 	toArray: function() {
 		return core_slice.call( this );
 	},
 
 	// Get the Nth element in the matched element set OR
 	// Get the whole matched element set as a clean array
+	// 转元素集合 最终转成的还是数组
+	// 参考7.jq-toArray-get.html
 	get: function( num ) {
 		return num == null ?
 
@@ -267,6 +282,7 @@ jQuery.fn = jQuery.prototype = {
 			this.toArray() :
 
 			// Return just the object
+			//get 的参数如果是负数表示从后往前找原素
 			( num < 0 ? this[ this.length + num ] : this[ num ] );
 	},
 
