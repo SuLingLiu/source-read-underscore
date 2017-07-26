@@ -288,12 +288,18 @@ jQuery.fn = jQuery.prototype = {
 
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
+	// JQ对象的入栈 队列是先进先出，栈是先进后出，跟进电梯一样
+	// $('div').pushStack( $('span') ).css('background','red').end().css('background','yellow');
+	// $('div').pushStack( $('span') ).css('background','red')此时只有span的背景色变了，div的并未变，要想给div加样式需要先end()
+	// 大都用来内部处理 参考：8.jq-pushStack.html
 	pushStack: function( elems ) {
-
 		// Build a new jQuery matched element set
+		//  $.merge对外是合并数组，对内还可以合并json,数组和json合并就变成了json了
 		var ret = jQuery.merge( this.constructor(), elems );
 
+
 		// Add the old object onto the stack (as a reference)
+		// 这里的this指的是调用这个方法的元素
 		ret.prevObject = this;
 		ret.context = this.context;
 
@@ -327,12 +333,14 @@ jQuery.fn = jQuery.prototype = {
 		return this.eq( -1 );
 	},
 
+	// eq支持写负数
 	eq: function( i ) {
 		var len = this.length,
 			j = +i + ( i < 0 ? len : 0 );
 		return this.pushStack( j >= 0 && j < len ? [ this[j] ] : [] );
 	},
 
+	//map是对集合的二次处理
 	map: function( callback ) {
 		return this.pushStack( jQuery.map(this, function( elem, i ) {
 			return callback.call( elem, i, elem );
@@ -353,6 +361,7 @@ jQuery.fn = jQuery.prototype = {
 // Give the init function the jQuery prototype for later instantiation
 jQuery.fn.init.prototype = jQuery.fn;
 
+// 参考：9.jq-extend.html
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[0] || {},

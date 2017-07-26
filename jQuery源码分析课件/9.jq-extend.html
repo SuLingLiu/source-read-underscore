@@ -12,7 +12,7 @@
 
 //当只写一个对象自变量的时候，JQ中扩展插件的形式
 
-/*$.extend({     //扩展工具方法
+$.extend({     //扩展工具方法
 	aaa : function(){
 		alert(1);
 	},
@@ -24,6 +24,7 @@
 $.fn.extend({     //扩展JQ实例方法
 	aaa : function(){
 		alert(3);
+		console.log(this)
 	},
 	bbb : function(){
 		alert(4);
@@ -34,10 +35,10 @@ $.fn.extend({     //扩展JQ实例方法
 $.aaa();
 $.bbb();
 
-$().aaa();
+$('div').aaa();
 $().bbb();
 
-
+/*
 $.extend();  -> this -> $  -> this.aaa  ->  $.aaa()
 $.fn.extend(); -> this -> $.fn -> this.aaa ->  $().aaa()*/
 
@@ -90,7 +91,7 @@ alert( b.name.age );*/
 //var a = {};
 //console.log( $.extend( a , { name : a } ) );
 
-var a = { name : { job : 'it' } };
+/*var a = { name : { job : 'it' } };
 var b = { name : {age : 30} };
 
 $.extend( true , a  , b );
@@ -102,11 +103,12 @@ JQ中 : 拷贝继承 : 构造函数的原型
 
 JS : 类式继承 / 原型继承
 
-new 构造函数   /  {}
+new 构造函数   /  {}*/
 
 </script>
 </head>
-
+		
 <body>
+	<div></div>
 </body>
 </html>
