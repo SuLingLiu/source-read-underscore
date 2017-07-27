@@ -364,12 +364,16 @@ jQuery.fn.init.prototype = jQuery.fn;
 // 参考：9.jq-extend.html
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
+		//目标元素是第一个参数
 		target = arguments[0] || {},
 		i = 1,
 		length = arguments.length,
+		//默认是浅拷贝
 		deep = false;
 
 	// Handle a deep copy situation
+	// $.extend( true , a , b );
+	// 如果是深拷贝，目标元素就是第二个
 	if ( typeof target === "boolean" ) {
 		deep = target;
 		target = arguments[1] || {};
@@ -378,18 +382,23 @@ jQuery.extend = jQuery.fn.extend = function() {
 	}
 
 	// Handle case when target is a string or something (possible in deep copy)
+	// 如果目标不是对象就把他变成对象，看参数正确不
 	if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
 		target = {};
 	}
 
 	// extend jQuery itself if only one argument is passed
+	// 看是不是插件情况
+	// $.extend({ aaa : function(){alert(1);},bbb : function(){alert(2);}});
 	if ( length === i ) {
 		target = this;
 		--i;
 	}
 
+	// 可能有多个对象情况
 	for ( ; i < length; i++ ) {
 		// Only deal with non-null/undefined values
+		// 看一下后面的对象是否都有值
 		if ( (options = arguments[ i ]) != null ) {
 			// Extend the base object
 			for ( name in options ) {
@@ -397,12 +406,16 @@ jQuery.extend = jQuery.fn.extend = function() {
 				copy = options[ name ];
 
 				// Prevent never-ending loop
+				// 防止循环引用，a跟a是同一个。 var a = {};console.log( $.extend( a , { name : a } ) );
 				if ( target === copy ) {
 					continue;
 				}
 
 				// Recurse if we're merging plain objects or arrays
+				// 深拷贝 低柜处理
 				if ( deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) {
+					//先分开看原有的src是否是json或者数组
+					//var a = { name : { job : 'it' } };var b = { name : {age : 30} };$.extend( true , a  , b );
 					if ( copyIsArray ) {
 						copyIsArray = false;
 						clone = src && jQuery.isArray(src) ? src : [];
@@ -415,6 +428,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 					target[ name ] = jQuery.extend( deep, clone, copy );
 
 				// Don't bring in undefined values
+				// 浅拷贝
 				} else if ( copy !== undefined ) {
 					target[ name ] = copy;
 				}
@@ -426,10 +440,13 @@ jQuery.extend = jQuery.fn.extend = function() {
 	return target;
 };
 
+// 参考：10.jq-jQuery.extend扩展插件.html
 jQuery.extend({
 	// Unique for each copy of jQuery on the page
+	// 生成唯一JQ字符串(内部)，作用是每次都是唯一的，具备唯一性
 	expando: "jQuery" + ( core_version + Math.random() ).replace( /\D/g, "" ),
 
+	// 防止冲突 参数
 	noConflict: function( deep ) {
 		if ( window.$ === jQuery ) {
 			window.$ = _$;

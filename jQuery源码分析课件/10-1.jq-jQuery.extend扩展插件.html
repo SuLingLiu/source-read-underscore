@@ -5,32 +5,33 @@
 <title>无标题文档</title>
 <script>
 
-//var $ = 123;
+// var $ = 123;
 //var jQuery = 456;
 
 </script>
 <script src="jquery-2.0.3.js"></script>
 <script>
-
-//alert( $.expando );
+//jQuery203036747636195775457
+// alert( $.expando );
 //$()  jQuery()
 
 /*var miaov = $.noConflict(true);
-
+// var $ = 123;
 
 miaov(function(){
 	
-	//alert($);
+	alert($);
 	
-	alert( jQuery );
+	// alert( jQuery );
 	
 });*/
 
-/*$(function(){});
+// 原生的window.onload 是等所有东西都加载完，才会走
+// jq是等dom加载完，不包括图片等媒体文件，只加载节点
+// 参考ready.png
+/*$(function(){}); --> $(document).ready(function(){}); --> $().ready(); --> jQuery.ready.promise().done( fn );
 
-$(document).ready(function(){});
 
-$().ready();
 
 $.ready()
 
@@ -57,7 +58,7 @@ $(document).ready(function(){
 //readyList.resolve();
 
 
-$.holdReady(true);
+/*$.holdReady(true);
 
 $.getScript('a.js',function(){
 	$.holdReady(false);
@@ -79,7 +80,7 @@ $.getScript('c.js',function(){
 
 $(function(){
 	alert(2);
-});
+});*/
 
 
 </script>
