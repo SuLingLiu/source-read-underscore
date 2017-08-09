@@ -316,6 +316,7 @@ jQuery.fn = jQuery.prototype = {
 
 	ready: function( fn ) {
 		// Add the callback
+		// jQuery.ready.promise()返回的是一个延迟对象，等到适当的时候再触发
 		jQuery.ready.promise().done( fn );
 
 		return this;
@@ -467,11 +468,12 @@ jQuery.extend({
 	readyWait: 1,
 
 	// Hold (or release) the ready event
+	// 推迟DOM的触发 如果代码这样写$.holdReady(true);$(function() {alert(123)})后面的alert就不会被执行他的应用,参考11.jq-jQuery.extend扩展插件-ready.html
 	holdReady: function( hold ) {
 		if ( hold ) {
-			jQuery.readyWait++;
+			jQuery.readyWait++;//对多组延迟
 		} else {
-			jQuery.ready( true );
+			jQuery.ready( true );//检测是否hold完
 		}
 	},
 
@@ -479,6 +481,8 @@ jQuery.extend({
 	ready: function( wait ) {
 
 		// Abort if there are pending holds or we're already ready
+		// 当不传参数时，走jQuery.isReady，默认是false进来一次
+		alert(jQuery.readyWait)
 		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
 			return;
 		}
@@ -492,9 +496,12 @@ jQuery.extend({
 		}
 
 		// If there are functions bound, to execute
+		// 已经完成 说明dom已经加载完了，可以调回调函数了
+		// 平时readyList.resolve()这样写，是不能带参数，readyList.resolveWith可以带参数，第一个是this指向，第二个是参数
 		readyList.resolveWith( document, [ jQuery ] );
 
 		// Trigger any bound ready events
+		// 以下对应的是这种方式，主动触发$(document).on('ready',function(){alert(123);});
 		if ( jQuery.fn.trigger ) {
 			jQuery( document ).trigger("ready").off("ready");
 		}
@@ -914,6 +921,7 @@ jQuery.extend({
 });
 
 jQuery.ready.promise = function( obj ) {
+	//readyList一开始是未定义可以进来，进来后不能再进来，只要一次加载成功，后续的都能触发
 	if ( !readyList ) {
 
 		readyList = jQuery.Deferred();
@@ -921,19 +929,24 @@ jQuery.ready.promise = function( obj ) {
 		// Catch cases where $(document).ready() is called after the browser event has already occurred.
 		// we once tried to use readyState "interactive" here, but it caused issues like the one
 		// discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
+		// 不管是if还是走else最终调的都是jQuery.ready
+		// if里的判断，是但调用$(function(){})DOM已经加载好了，DOM加载好的标志是document.readyState === "complete"
 		if ( document.readyState === "complete" ) {
 			// Handle it asynchronously to allow scripts the opportunity to delay ready
+			// 为什么要加setTimeout，作用是为了防止ie,document.readyState === "complete"当这个还没有完成时，下面的会提前触发
 			setTimeout( jQuery.ready );
 
 		} else {
 
 			// Use the handy event callback
+			// 为什么要监测两个，DOMContentLoaded高于load,之所以写来两个是因为有些浏览器对load有缓存，如果有缓存会先触发load,再触发DOMContentLoaded，为了保证第一时间走最快的DOM加载所以写了两个，两个都写了在completed里会移除时间只会调一个
 			document.addEventListener( "DOMContentLoaded", completed, false );
 
 			// A fallback to window.onload, that will always work
 			window.addEventListener( "load", completed, false );
 		}
 	}
+	//延迟对象有完成/未完成等状态等，在外部是可以被修改，但是promise的状态是不能被修改
 	return readyList.promise( obj );
 };
 

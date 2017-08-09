@@ -40,9 +40,10 @@ DOMContentLoaded
 window.onload = function(){
 };*/
 
-
+//readyList.resolve();不能带参数，resolveWith第二个可以带参数，第一个参是this指向
+//测试readyList.resolveWith( document, [ jQuery ] );
 /*$(function( arg ){
-	
+	console.log(this)
 	alert(arg);
 	
 });
@@ -55,16 +56,18 @@ $(document).ready(function(){
 	alert(123);
 });*/
 
-//readyList.resolve();
 
 
+//$.holdReady的应用场景，如下：如果a.js要加载完了，再触发ready
 /*$.holdReady(true);
-
-$.getScript('a.js',function(){
+$.getScript('a.js',function(){//这个加载是异步的，有可能ready加载完成了，它还未加载完
 	$.holdReady(false);
 });
+$(function() {
+	alert(1)
+}) */
 
-
+/* //对多组延迟jQuery.readyWait++
 $.holdReady(true);
 
 $.getScript('b.js',function(){
