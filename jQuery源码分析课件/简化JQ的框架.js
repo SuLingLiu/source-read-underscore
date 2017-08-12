@@ -1,5 +1,5 @@
 // JavaScript Document
-// 第17课
+// 第20课
 (function(){
 	
 	√(21 , 94) 定义了一些变量和函数 jQuery = function(){};

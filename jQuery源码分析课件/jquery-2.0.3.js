@@ -510,30 +510,41 @@ jQuery.extend({
 	// See test/unit/core.js for details concerning isFunction.
 	// Since version 1.3, DOM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
+	// 是否为函数,低版本ie内置的函数如alert,它返回的是object
 	isFunction: function( obj ) {
 		return jQuery.type(obj) === "function";
 	},
 
+	//是否为数组，这个是es5自带的方法，高版本都支持这个
 	isArray: Array.isArray,
 
+	//判断是不是window
 	isWindow: function( obj ) {
+		//之所以要加obj!=null,是因为null==null，undefined==null都为true，其它的与null进行比较都是false
 		return obj != null && obj === obj.window;
 	},
 
+	//判断是不是数字，isFinite( obj )判断数字是否为有限的
 	isNumeric: function( obj ) {
 		return !isNaN( parseFloat(obj) ) && isFinite( obj );
 	},
 
+	//判断数据类型，可以判断很多的类型
 	type: function( obj ) {
 		if ( obj == null ) {
-			return String( obj );
+			return String( obj );//type最终传回去的都是字符串，所以这里用了String方法
 		}
 		// Support: Safari <= 5.1 (functionish RegExp)
+		// core_toString = class2type.toString, {}.toString
+		// alert( {}.toString.call([]) =='[object Array]' )
+		//  typeof obj === "object" || typeof obj === "function"这里做双重判断是为了兼容Safari <= 5.1，正则返回的是function
 		return typeof obj === "object" || typeof obj === "function" ?
 			class2type[ core_toString.call(obj) ] || "object" :
 			typeof obj;
 	},
 
+	//判断是否为对象自变量
+	//var obj = { name : 'hello' };var obj = new Object(); 满足这两种的就是true
 	isPlainObject: function( obj ) {
 		// Not plain objects:
 		// - Any object or value whose internal [[Class]] property is not "[object Object]"
@@ -547,12 +558,15 @@ jQuery.extend({
 		// The try/catch suppresses exceptions thrown when attempting to access
 		// the "constructor" property of certain host objects, ie. |window.location|
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=814622
+		// core_hasOwn = class2type.hasOwnProperty
+		// isPrototypeOf是object的方法
 		try {
+			//要过滤window.location
 			if ( obj.constructor &&
 					!core_hasOwn.call( obj.constructor.prototype, "isPrototypeOf" ) ) {
 				return false;
 			}
-		} catch ( e ) {
+		} catch ( e ) {//防止火狐的bug window.location.constructor.prototype的内存泄露
 			return false;
 		}
 
@@ -561,6 +575,10 @@ jQuery.extend({
 		return true;
 	},
 
+	//判断是否是空对象，空数组，空的面向对象
+	//for in的特点，是系统自带的是for in不带的，只有自己写的才可以
+	//function Aaa(){};Aaa.prototype.constructor = Aaa;Aaa.prototype.show = function(){};for( var attr in Aaa.prototype ){alert(attr);}
+	//可以去查看资料，设置系统属性是有四个属性，有一个属性是控制是否能for in到
 	isEmptyObject: function( obj ) {
 		var name;
 		for ( name in obj ) {
@@ -569,6 +587,7 @@ jQuery.extend({
 		return true;
 	},
 
+	// 抛出异常
 	error: function( msg ) {
 		throw new Error( msg );
 	},
@@ -576,6 +595,8 @@ jQuery.extend({
 	// data: string of html
 	// context (optional): If specified, the fragment will be created in this context, defaults to document
 	// keepScripts (optional): If true, will include scripts passed in the html string
+	// 解析节点 字符串转化为节点
+	// 参数一：字符串数据，二：父节点如document,keepScripts是否允许创建script标签，返回数组
 	parseHTML: function( data, context, keepScripts ) {
 		if ( !data || typeof data !== "string" ) {
 			return null;
