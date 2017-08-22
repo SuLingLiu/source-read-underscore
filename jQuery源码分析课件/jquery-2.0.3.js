@@ -597,16 +597,20 @@ jQuery.extend({
 	// keepScripts (optional): If true, will include scripts passed in the html string
 	// 解析节点 字符串转化为节点
 	// 参数一：字符串数据，二：父节点如document,keepScripts是否允许创建script标签，返回数组
+	// '<li></li><li></li><script><\/script>'
 	parseHTML: function( data, context, keepScripts ) {
+		//data必须是字符串
 		if ( !data || typeof data !== "string" ) {
 			return null;
 		}
+		//在少参情况下的处理
 		if ( typeof context === "boolean" ) {
 			keepScripts = context;
 			context = false;
 		}
 		context = context || document;
 
+		//rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/ 只针对于<li>或者<li></li>，这样的多标签<li></li><li></li>是不行的,单标签的形式比较简单
 		var parsed = rsingleTag.exec( data ),
 			scripts = !keepScripts && [];
 
@@ -615,12 +619,14 @@ jQuery.extend({
 			return [ context.createElement( parsed[1] ) ];
 		}
 
+		//多标签会走这个方法
 		parsed = jQuery.buildFragment( [ data ], context, scripts );
 
 		if ( scripts ) {
 			jQuery( scripts ).remove();
 		}
 
+		//得到的parsed.childNodes不是数组也所以要进行处理
 		return jQuery.merge( [], parsed.childNodes );
 	},
 
