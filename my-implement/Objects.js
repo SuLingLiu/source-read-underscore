@@ -203,12 +203,19 @@ _.findKey = function (obj, fn, context) {
 _.extend = function (obj) {
     var args = [].slice.call(arguments,1);
     function copy(obj,args) {
+        var isType = Object.prototype.toString;
+        if(!obj) {return obj};
         for(var i=0; i<args.length; i++) {
+            if(!args[i]) {break;}
             for(var attr in args[i]) {
                 var tem = args[i][attr];
-                if(tem.constructor === 'Array') {
+                if(!tem) {
+                    obj[attr] = tem;
+                    break;
+                }
+                if(isType(tem) === '[object Array]') {
                     obj[attr] = copy([],tem);
-                }else if(tem.constructor === 'Object') {
+                }else if(isType(tem) === '[object Object]') {
                     obj[attr] = copy({},tem);
                 }else {
                     obj[attr] = tem;
@@ -225,12 +232,14 @@ _.extend = function (obj) {
 //测试
 // var obj = _.extend({name: 'moe',c:{b:1,a:[1,2,3]}}, {age: 50,c:{b:1,d:3,a:[1,2,3,4]}});
 // console.log(obj);
-// var a = {
-//     name: 'Bob',
-//     age: 20
-// };
+var a = {
+    name: 'Bob',
+    age: 20
+};
 // _.extend(a, {age: 15}, {age: 88, city: 'Beijing'});
 // console.log(a);
+_.extend(a, {ccc:new Date()});
+console.log(a)
 
 
 /**
