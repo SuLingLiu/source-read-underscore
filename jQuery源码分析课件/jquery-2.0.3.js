@@ -482,7 +482,6 @@ jQuery.extend({
 
 		// Abort if there are pending holds or we're already ready
 		// 当不传参数时，走jQuery.isReady，默认是false进来一次
-		alert(jQuery.readyWait)
 		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
 			return;
 		}
@@ -614,22 +613,23 @@ jQuery.extend({
 		var parsed = rsingleTag.exec( data ),
 			scripts = !keepScripts && [];
 
-		// Single tag
+		// Single tag 针对单标签
 		if ( parsed ) {
 			return [ context.createElement( parsed[1] ) ];
 		}
 
-		//多标签会走这个方法
+		//多标签会走这个方法，利用文档碎片来创建
 		parsed = jQuery.buildFragment( [ data ], context, scripts );
 
 		if ( scripts ) {
 			jQuery( scripts ).remove();
 		}
 
-		//得到的parsed.childNodes不是数组也所以要进行处理
+		//得到的parsed.childNodes不是数组，所以要进行处理
 		return jQuery.merge( [], parsed.childNodes );
 	},
 
+	//JSON.parse和eval eval能解析任何的字符串，安全性能差，parse只能解析json数组类型的
 	parseJSON: JSON.parse,
 
 	// Cross-browser xml parsing
@@ -653,9 +653,10 @@ jQuery.extend({
 		return xml;
 	},
 
+	//空函数
 	noop: function() {},
 
-	// Evaluates a script in a global context
+	// Evaluates a script in a global context 将局部变量解析为全局变量
 	globalEval: function( code ) {
 		var script,
 				indirect = eval;
@@ -666,6 +667,7 @@ jQuery.extend({
 			// If the code includes a valid, prologue position
 			// strict mode pragma, execute code by injecting a
 			// script tag into the document.
+			// 严格模式下是不支持eval解析的
 			if ( code.indexOf("use strict") === 1 ) {
 				script = document.createElement("script");
 				script.text = code;
@@ -673,17 +675,20 @@ jQuery.extend({
 			} else {
 			// Otherwise, avoid the DOM node creation, insertion
 			// and removal by using an indirect global eval
-				indirect( code );
+				indirect( code );//这里之所以没有直接用eval，就是为了解析成全局变量，而不是局部变量
 			}
 		}
 	},
 
 	// Convert dashed to camelCase; used by the css and data modules
 	// Microsoft forgot to hump their vendor prefix (#9572)
+	// 内部方法 
 	camelCase: function( string ) {
+		//ie的前缀比较特殊，第一个字母不能大写
 		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
 	},
 
+	//内部方法 判断elem的节点名是不是name
 	nodeName: function( elem, name ) {
 		return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 	},
