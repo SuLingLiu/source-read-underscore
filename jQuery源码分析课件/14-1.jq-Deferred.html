@@ -180,7 +180,32 @@ resolve
 reject
 notify*/
 
+/*function aaa(){
+	
+	var dfd = $.Deferred();
+	
+	alert( dfd.state() );
+	
+	setTimeout(function(){
+		
+		dfd.resolve();
+		
+		alert( dfd.state() );
+		
+	},1000);
+	
+	
+	return dfd;
+	
+}
 
+var newDfd = aaa();
+
+newDfd.done(function(){
+	alert('成功');
+}).fail(function(){
+	alert('失败');
+});*/
 
 
 /*function aaa(){
@@ -198,7 +223,7 @@ notify*/
 	},1000);
 	
 	
-	return dfd.promise();
+	return dfd.promise();//这个返回的是promise对象，不是Deferred对象，promise对象没有reject方法，所以会保错，Deferred继承了promise对象
 	
 }
 

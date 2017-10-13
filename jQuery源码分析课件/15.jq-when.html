@@ -35,6 +35,7 @@ function bbb(){
 	alert('成功');
 });*/
 
+//当aaa和bbb都完成后再走done，如果有一个是失败都会走fail，aaa等必须返回的是延迟对象，如果不是，会当成普通函数，跳过去执行
 /*$.when( aaa() , bbb() ).done(function(){
 	alert('成功');
 }).fail(function(){

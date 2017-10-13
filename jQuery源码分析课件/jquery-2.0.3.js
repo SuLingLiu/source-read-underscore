@@ -747,12 +747,15 @@ jQuery.extend({
 		return text == null ? "" : core_trim.call( text );
 	},
 
-	// results is for internal usage only
+	// results is for internal usage only 
+	// 类数组，字符串，json等转数组，第二个参是内部使用，json格式必须是有length属性，用以转对象
 	makeArray: function( arr, results ) {
 		var ret = results || [];
 
 		if ( arr != null ) {
-			if ( isArraylike( Object(arr) ) ) {
+			// Object(arr)这一步的操作是把字符串数字等转成对象，因为isArraylike接受的参数只能是对象
+			// 字符串通过Object转是对象有length,有长度isArraylike就为真
+			if ( isArraylike就为真( Object(arr) ) ) {
 				jQuery.merge( ret,
 					typeof arr === "string" ?
 					[ arr ] : arr
@@ -765,10 +768,15 @@ jQuery.extend({
 		return ret;
 	},
 
+	//相当于字符串的indexof，这是数组的对应方法
 	inArray: function( elem, arr, i ) {
 		return arr == null ? -1 : core_indexOf.call( arr, elem, i );
 	},
 
+	/*if :  $.merge(['a','b'],['c','d']);
+	else : $.merge(['a','b'],{0:'c',1:'d'});*/
+	//console.log( $.merge({0:'a',1:'b',length:2},{0:'c',1:'d'}) );
+	// console.log( $.merge({0:'a',1:'b',length:2},['c','d']) );
 	merge: function( first, second ) {
 		var l = second.length,
 			i = first.length,
@@ -789,6 +797,7 @@ jQuery.extend({
 		return first;
 	},
 
+	//过滤得到新数组，第三个参数如果为真表示回调函数的取反
 	grep: function( elems, callback, inv ) {
 		var retVal,
 			ret = [],
@@ -838,14 +847,17 @@ jQuery.extend({
 		}
 
 		// Flatten any nested arrays
+		// 此处不是直接返回ret，是为了处理混合数组，arr = $.map( arr , function(n){return [n+1];} );
 		return core_concat.apply( [], ret );
 	},
 
 	// A global GUID counter for objects
+	// 跟jquery的事件操作有关
 	guid: 1,
 
 	// Bind a function to a context, optionally partially applying any
 	// arguments.
+	// 改this指向的工具方法
 	proxy: function( fn, context ) {
 		var tmp, args, proxy;
 
@@ -875,34 +887,38 @@ jQuery.extend({
 
 	// Multifunctional method to get and set values of a collection
 	// The value/s can optionally be executed if it's a function
+	// 内部使用，多功能值操作$().css();  $().attr()等;  set/get
+	// chainable假表示获取，真表示设置
 	access: function( elems, fn, key, value, chainable, emptyGet, raw ) {
 		var i = 0,
 			length = elems.length,
 			bulk = key == null;
 
 		// Sets many values
+		// 设置多组值，如css里面传json
 		if ( jQuery.type( key ) === "object" ) {
-			chainable = true;
+			chainable = true;//自动变成设置
 			for ( i in key ) {
 				jQuery.access( elems, fn, i, key[i], true, emptyGet, raw );
 			}
 
-		// Sets one value
+		// Sets one value，表示设置值
 		} else if ( value !== undefined ) {
 			chainable = true;
 
+			//判断value是不是函数
 			if ( !jQuery.isFunction( value ) ) {
 				raw = true;
 			}
 
-			if ( bulk ) {
+			if ( bulk ) {//表示key为假
 				// Bulk operations run against the entire set
-				if ( raw ) {
+				if ( raw ) {//vaule不是函数，设置值
 					fn.call( elems, value );
 					fn = null;
 
 				// ...except when executing function values
-				} else {
+				} else {//value是函数
 					bulk = fn;
 					fn = function( elem, key, value ) {
 						return bulk.call( jQuery( elem ), value );
@@ -933,7 +949,7 @@ jQuery.extend({
 	// If support gets modularized, this method should be moved back to the css module.
 	swap: function( elem, options, callback, args ) {
 		var ret, name,
-			old = {};
+			old = {};//存元素身上原有的样式值
 
 		// Remember the old values, and insert the new ones
 		for ( name in options ) {
@@ -987,18 +1003,22 @@ jQuery.each("Boolean Number String Function Array Date RegExp Object Error".spli
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
 });
 
+//判断是不是类数组，数组，特殊的json(带length属性)
 function isArraylike( obj ) {
 	var length = obj.length,
 		type = jQuery.type( obj );
 
+	//之所以要判断是不是window，是怕window下也有length属性
 	if ( jQuery.isWindow( obj ) ) {
 		return false;
 	}
 
+	//这里必然是类数组
 	if ( obj.nodeType === 1 && length ) {
 		return true;
 	}
 
+	//函数是有length;( length === 0 ||typeof length === "number" && length > 0 && ( length - 1 ) in obj )是为了判断arguments等
 	return type === "array" || type !== "function" &&
 		( length === 0 ||
 		typeof length === "number" && length > 0 && ( length - 1 ) in obj );
@@ -3019,13 +3039,19 @@ function createOptions( options ) {
  *	stopOnFalse:	interrupt callings when a callback returns false
  *
  */
-jQuery.Callbacks = function( options ) {
-
+/**
+ * once fire只会触发一次，多次调用也只触发一次
+ * memory 与调用fire的顺序无关，都会执行
+ * unique 多次添加函数，不会重复触发
+ * stopOnFalse 如果某个增加的函数有return false,往后的函数都不会执行
+ */
+jQuery.Callbacks = function( options ) {//参数还可以组合once memory传
 	// Convert options from String-formatted to Object-formatted if needed
 	// (we check in cache first)
 	options = typeof options === "string" ?
 		( optionsCache[ options ] || createOptions( options ) ) :
 		jQuery.extend( {}, options );
+
 
 	var // Last fire value (for non-forgettable lists)
 		memory,
@@ -3042,7 +3068,7 @@ jQuery.Callbacks = function( options ) {
 		// Actual callback list
 		list = [],
 		// Stack of fire calls for repeatable lists
-		stack = !options.once && [],
+		stack = !options.once && [],//堆是为了多次调用fire时有时依次执行
 		// Fire callbacks
 		fire = function( data ) {
 			memory = options.memory && data;
@@ -3050,7 +3076,7 @@ jQuery.Callbacks = function( options ) {
 			firingIndex = firingStart || 0;
 			firingStart = 0;
 			firingLength = list.length;
-			firing = true;
+			firing = true;//表示进行时
 			for ( ; list && firingIndex < firingLength; firingIndex++ ) {
 				if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
 					memory = false; // To prevent further calls using add
@@ -3073,17 +3099,20 @@ jQuery.Callbacks = function( options ) {
 		// Actual Callbacks object
 		self = {
 			// Add a callback or a collection of callbacks to the list
-			add: function() {
+			add: function() {//增加
 				if ( list ) {
 					// First, we save the current length
 					var start = list.length;
+					//cb.add(aaa,bbb);
 					(function add( args ) {
 						jQuery.each( args, function( _, arg ) {
 							var type = jQuery.type( arg );
 							if ( type === "function" ) {
+								//options.unique如果为真，就不重复添加
 								if ( !options.unique || !self.has( arg ) ) {
 									list.push( arg );
 								}
+							//cb.add([aaa,bbb]);
 							} else if ( arg && arg.length && type !== "string" ) {
 								// Inspect recursively
 								add( arg );
@@ -3103,7 +3132,8 @@ jQuery.Callbacks = function( options ) {
 				}
 				return this;
 			},
-			// Remove a callback from the list
+			// Remove a callback from the list 
+			// 移除
 			remove: function() {
 				if ( list ) {
 					jQuery.each( arguments, function( _, arg ) {
@@ -3158,7 +3188,7 @@ jQuery.Callbacks = function( options ) {
 			},
 			// Call all callbacks with the given context and arguments
 			fireWith: function( context, args ) {
-				if ( list && ( !fired || stack ) ) {
+				if ( list && ( !fired || stack ) ) {//stack来判断是否只触发一次fire
 					args = args || [];
 					args = [ context, args.slice ? args.slice() : args ];
 					if ( firing ) {
@@ -3170,6 +3200,7 @@ jQuery.Callbacks = function( options ) {
 				return this;
 			},
 			// Call all the callbacks with the given arguments
+			// fire里传的实参所有函数都可以用
 			fire: function() {
 				self.fireWith( this, arguments );
 				return this;
@@ -3187,15 +3218,16 @@ jQuery.extend({
 	Deferred: function( func ) {
 		var tuples = [
 				// action, add listener, listener list, final state
-				[ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
+				[ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],//最后的值表示状态
 				[ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
 				[ "notify", "progress", jQuery.Callbacks("memory") ]
 			],
-			state = "pending",
+			state = "pending",//三种状态pending，resolved，rejected
 			promise = {
 				state: function() {
 					return state;
 				},
+				//不管是失败还是成功都会走always
 				always: function() {
 					deferred.done( arguments ).fail( arguments );
 					return this;
@@ -3242,12 +3274,13 @@ jQuery.extend({
 			promise[ tuple[1] ] = list.add;
 
 			// Handle state
-			if ( stateString ) {
+			if ( stateString ) {//有状态的才进来，成功或失败
 				list.add(function() {
 					// state = [ resolved | rejected ]
 					state = stateString;
 
 				// [ reject_list | resolve_list ].disable; progress_list.lock
+				// 如果走了成功，失败就被禁止，所以tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock，i ^ 1一个小技巧（0 ^ 1 == 1 ；1 ^ 1 == 0）
 				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
 			}
 
@@ -3272,12 +3305,15 @@ jQuery.extend({
 	},
 
 	// Deferred helper
+	// 反回的也是一个延迟对象，但是他返回的是一个不能被修改状态的延迟对象
 	when: function( subordinate /* , ..., subordinateN */ ) {
+		//when对没有参数，只有一个参数，大于一个参数进行分开处里
 		var i = 0,
-			resolveValues = core_slice.call( arguments ),
+			resolveValues = core_slice.call( arguments ),//arguments不是数组，先转成数组
 			length = resolveValues.length,
 
 			// the count of uncompleted subordinates
+			// remaining表示未完成的计数器
 			remaining = length !== 1 || ( subordinate && jQuery.isFunction( subordinate.promise ) ) ? length : 0,
 
 			// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
@@ -3303,6 +3339,7 @@ jQuery.extend({
 			progressValues = new Array( length );
 			progressContexts = new Array( length );
 			resolveContexts = new Array( length );
+			//循环的作用是对计数器进行减数
 			for ( ; i < length; i++ ) {
 				if ( resolveValues[ i ] && jQuery.isFunction( resolveValues[ i ].promise ) ) {
 					resolveValues[ i ].promise()
@@ -3310,6 +3347,7 @@ jQuery.extend({
 						.fail( deferred.reject )
 						.progress( updateFunc( i, progressContexts, progressValues ) );
 				} else {
+					//如果参数不是延迟对象走这
 					--remaining;
 				}
 			}
@@ -3339,10 +3377,12 @@ jQuery.support = (function( support ) {
 
 	// Support: Safari 5.1, iOS 5.1, Android 4.x, Android 2.3
 	// Check the default checkbox/radio value ("" on old WebKit; "on" elsewhere)
+	// 旧版本WebKit选中的值为空，新版本的是on
 	support.checkOn = input.value !== "";
 
 	// Must access the parent to make an option select properly
 	// Support: IE9, IE10
+	// select下的option默认第一个值是选中，ie是默认第一个值不选中
 	support.optSelected = opt.selected;
 
 	// Will be defined later
@@ -3353,6 +3393,7 @@ jQuery.support = (function( support ) {
 	// Make sure checked status is properly cloned
 	// Support: IE9, IE10
 	input.checked = true;
+	//选中的复选框，克隆否的是否选中
 	support.noCloneChecked = input.cloneNode( true ).checked;
 
 	// Make sure that the options inside disabled selects aren't marked as disabled

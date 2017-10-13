@@ -6,7 +6,7 @@
 <script src="jquery-2.0.3.js"></script>
 <script>
 
-/*function aaa(){
+function aaa(){
 	alert(1);
 	return false;
 }
@@ -17,7 +17,13 @@ function bbb(){
 
 function ccc(){
 	alert(3);
-}*/
+}
+/*var cb = $.Callbacks();
+
+cb.add( aaa );
+cb.add( bbb );
+
+cb.fire();*/
 
 /*var cb = $.Callbacks('once');
 
@@ -68,7 +74,7 @@ optionsCache : {
 }*/
 
 
-function aaa(n){
+/*function aaa(n){
 	alert('aaa' + n);
 	return false;
 }
@@ -85,7 +91,7 @@ var cb = $.Callbacks();
 cb.add(aaa,bbb);
 
 cb.fire('hello');
-cb.fire('hello');
+cb.fire('hello');*/
 
 </script>
 </head>
