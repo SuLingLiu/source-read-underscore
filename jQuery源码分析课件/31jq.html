@@ -20,6 +20,7 @@ $(function(){
 	});*/
 	
 	$('#div1').click(function(){
+		//jquery 队列里的名字是fx，默认是fx可以不用写，出队的时候可以用$(this).queue(),也可以用回调参数next();
 		
 		/*$(this).animate({width : 300},2000).queue(function(next){
 			
@@ -37,7 +38,7 @@ $(function(){
 				if( This.offsetHeight == 200 ){
 					clearInterval(timer);
 				}
-			},30);
+			},30);//会跟后面的animate一块运动
 			
 			
 		}).animate({left : 300},2000);*/    

@@ -5,7 +5,7 @@
 <title>无标题文档</title>
 <script src="jquery-2.0.3.js"></script>
 <script>
-
+//queue功能比Deferred功能强大，Deferred针对的是一个，queue针对的是多个，主要是用于动画
 /*jQuery.extend({
 	queue                push()
 	dequeue              shift()
@@ -19,7 +19,7 @@ jQuery.fn.extend({
 	promise
 });*/
 
-//队列中存储的都是函数
+//队列中存储的都是函数 ****
 
 $(function(){
 	
@@ -32,11 +32,11 @@ $(function(){
 	}*/
 	
 	//$.queue( document , 'q1' , aaa );   
-	//$.queue( document , 'q1' , bbb );
-	//$.queue( document , 'q1' , [aaa,bbb] );   
+	//$.queue( document , 'q1' , bbb );//传入方式一
+	//$.queue( document , 'q1' , [aaa,bbb] );   //传入方式二
 	//console.log(   $.queue( document , 'q1' )   );
-	//$.dequeue( document,'q1' );   //aaa()
-	//$.dequeue( document,'q1' );   //bbb()
+	//$.dequeue( document,'q1' );   //aaa() 只会执行第一个传入的函数
+	//$.dequeue( document,'q1' );   //bbb() 再次调用的时候会执行第二个函数
 	
 	
 	

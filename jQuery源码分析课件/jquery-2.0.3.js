@@ -3724,13 +3724,17 @@ jQuery.fn.extend({
 
 				//这个是为了获取html5下面设置的属性，data-lsl-all这种的
 				//hasDataAttrs这个属性是自己加的，第一次没有进入判断，之后就不再进去
+				//hasDataAttrs这个属性时放在私有的data_priv里，不会对data_user造成影响
 				if ( elem.nodeType === 1 && !data_priv.get( elem, "hasDataAttrs" ) ) {
+					//获取元素身上所有的属性值
 					attrs = elem.attributes;
 					for ( ; i < attrs.length; i++ ) {
 						name = attrs[ i ].name;
 
+						//处理data-之类的属性
 						if ( name.indexOf( "data-" ) === 0 ) {
-							name = jQuery.camelCase( name.slice(5) );
+							name = jQuery.camelCase( name.slice(5) );//转驼峰
+							//data[ name ]缓存里的数据
 							dataAttr( elem, name, data[ name ] );
 						}
 					}
@@ -3742,12 +3746,14 @@ jQuery.fn.extend({
 		}
 
 		// Sets multiple values
+		// {a: 'b',c: 'e'}
 		if ( typeof key === "object" ) {
 			return this.each(function() {
 				data_user.set( this, key );
 			});
 		}
 
+		//jQuery.access 多功能值的设置和获取，以及回调函数的操作，arguments.length > 1 为false是获取操作，为true是设置操作
 		return jQuery.access( this, function( value ) {
 			var data,
 				camelKey = jQuery.camelCase( key );
@@ -3760,13 +3766,14 @@ jQuery.fn.extend({
 			if ( elem && value === undefined ) {
 				// Attempt to get data from the cache
 				// with the key as-is
-				data = data_user.get( elem, key );
+				data = data_user.get( elem, key );//先找有没有这个值如果没有接着找驼峰的，如果还是找不到这找元素身上的值
 				if ( data !== undefined ) {
 					return data;
 				}
 
 				// Attempt to get data from the cache
 				// with the key camelized
+				// 驼峰值
 				data = data_user.get( elem, camelKey );
 				if ( data !== undefined ) {
 					return data;
@@ -3774,6 +3781,7 @@ jQuery.fn.extend({
 
 				// Attempt to "discover" the data in
 				// HTML5 custom data-* attrs
+				// 元素身上的值
 				data = dataAttr( elem, camelKey, undefined );
 				if ( data !== undefined ) {
 					return data;
@@ -3785,6 +3793,19 @@ jQuery.fn.extend({
 
 			// Set the data...
 			this.each(function() {
+				/*
+				是为了处理
+					$('#div1').data('nameAge','hi');
+					$('#div1').data('name-age','hello');//这种一般会不识别，所以缓存里会变成驼峰，如果name-age和nameAge都有，就会变成下面的情况
+					
+					this.cache = {
+						1 : {
+							'nameAge' : 'hello',
+							'name-age' : 'hello' //两个值都会变成hello
+						}
+					}		
+				 */
+
 				// First, attempt to store a copy or reference of any
 				// data that might've been store with a camelCased key.
 				var data = data_user.get( this, camelKey );
@@ -3811,13 +3832,15 @@ jQuery.fn.extend({
 	}
 });
 
+//data用来查看缓存里是否有对应的数据，如果有就不用再往缓存里放值
+//如：<div a="c"></c> $('div').data('a','b');再获取的时候,就不会去找元素身上的a=c；
 function dataAttr( elem, key, data ) {
 	var name;
 
 	// If nothing was found internally, try to fetch any
 	// data from the HTML5 data-* attribute
 	if ( data === undefined && elem.nodeType === 1 ) {
-		name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+		name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();//将驼峰转-
 		data = elem.getAttribute( name );
 
 		if ( typeof data === "string" ) {
@@ -3826,6 +3849,7 @@ function dataAttr( elem, key, data ) {
 					data === "false" ? false :
 					data === "null" ? null :
 					// Only convert to a number if it doesn't change the string
+					// 如果是数字返回数字，用+data是为了判断是不不是数字，如+a100会返回NaN
 					+data + "" === data ? +data :
 					rbrace.test( data ) ? JSON.parse( data ) :
 					data;
