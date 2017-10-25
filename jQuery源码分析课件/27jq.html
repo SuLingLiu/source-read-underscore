@@ -39,8 +39,11 @@ var obj = {};
 
 oDiv.name = obj;
 obj.age = oDiv;
-
+//以上会造成内存销量，
+//$('#div1').attr('name',obj); 如果obj里有$('#div1')也会造成内存泄漏
 $('#div1').attr('name',obj);
+
+//使用data则不会造成内存泄漏，这就是data跟attr以及prop的一个区别，以及data上可以存大量的数据
 $('#div1').data('name',obj);
 
 

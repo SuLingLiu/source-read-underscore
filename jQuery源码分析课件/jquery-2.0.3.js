@@ -3404,6 +3404,7 @@ jQuery.support = (function( support ) {
 	// Check if an input maintains its value after becoming a radio
 	// Support: IE9, IE10
 	input = document.createElement("input");
+	//以下两个顺序不能颠倒
 	input.value = "t";
 	input.type = "radio";
 	support.radioValue = input.value === "t";
@@ -3420,8 +3421,10 @@ jQuery.support = (function( support ) {
 
 	// Support: Firefox, Chrome, Safari
 	// Beware of CSP restrictions (https://developer.mozilla.org/en/Security/CSP)
+	// onfocusin 有冒泡机制， onfocus没有冒泡机制
 	support.focusinBubbles = "onfocusin" in window;
 
+	//background相关的样式克隆后的元素变了，是否印象被克隆的元素，现在ie是影响的
 	div.style.backgroundClip = "content-box";
 	div.cloneNode( true ).style.backgroundClip = "";
 	support.clearCloneStyle = div.style.backgroundClip === "content-box";
@@ -3707,17 +3710,20 @@ jQuery.extend({
 });
 
 jQuery.fn.extend({
+	//如果是一个参数表示获取，如果是两个参数表示设置
 	data: function( key, value ) {
 		var attrs, name,
-			elem = this[ 0 ],
+			elem = this[ 0 ],//获取的是this里的第一个元素，有可能有多个，jquery里面有一个思想，如果是设置值，则设置获取到的每一个元素，如果是获取值，只获取第一元素即可
 			i = 0,
 			data = null;
 
-		// Gets all values
+		// Gets all values 表示如果一个参数不传，则获取元素data所有的key:value值
 		if ( key === undefined ) {
 			if ( this.length ) {
 				data = data_user.get( elem );
 
+				//这个是为了获取html5下面设置的属性，data-lsl-all这种的
+				//hasDataAttrs这个属性是自己加的，第一次没有进入判断，之后就不再进去
 				if ( elem.nodeType === 1 && !data_priv.get( elem, "hasDataAttrs" ) ) {
 					attrs = elem.attributes;
 					for ( ; i < attrs.length; i++ ) {
