@@ -76,6 +76,7 @@ var
 	// Define a local copy of jQuery 参考2.jq构造函数.html
 	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
+		console.log(8888)
 		return new jQuery.fn.init( selector, context, rootjQuery );
 	},
 
@@ -447,17 +448,21 @@ jQuery.extend({
 	// 生成唯一JQ字符串(内部)，作用是每次都是唯一的，具备唯一性
 	expando: "jQuery" + ( core_version + Math.random() ).replace( /\D/g, "" ),
 
-	// 防止冲突 参数
+	// 防止冲突 参数，var miaov = $.noConflict(true)这个函数的调用必须在导入jquery之后使用，并且在导入冲突插件前使用，除非jquery是最后一个导入的
 	noConflict: function( deep ) {
+		//此时的_$和_jQuery都是undefined
+
+		//把window.$的控制权让出来
 		if ( window.$ === jQuery ) {
 			window.$ = _$;
 		}
 
+		//如果传入deep为true的话等于是把jQuery的控制权也让出去了
 		if ( deep && window.jQuery === jQuery ) {
 			window.jQuery = _jQuery;
 		}
 
-		return jQuery;
+		return jQuery;//返回的对象即是jQuery对象
 	},
 
 	// Is the DOM ready to be used? Set to true once it occurs.

@@ -5,7 +5,7 @@
 <title>无标题文档</title>
 <script>
 
-
+//========================== 1次备注
 //$() jQuery()
 
 //一般是这样写
@@ -33,6 +33,23 @@ jQuery.prototype.css = function(){
 jQuery.prototype.init.prototype = jQuery.prototype;
 
 jQuery().css();
+
+//============================== 2次备注
+	var jQuery = function (selector, context) {
+		return new jQuery.fn.init(selector, context);
+	}
+	jQuery.fn = jQuery.prototype = {
+		init: function() {
+			return this
+		},
+		jquery: version,
+		constructor: jQuery
+	}
+	jQuery.fn.init.prototype = jQuery.fn
+	var a = $();
+
+	$.each()
+	$('.a').each
 
 
 </script>

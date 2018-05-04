@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+
+// var $ = 123;
+//var jQuery = 456;
+
+</script>
+<script src="jquery-2.0.3.js"></script>
+<script>
+	var a,b,c,d;
+	a = b;
+	b = d;
+	var e = [1,2];
+	window.b = window.d = e;
+	b.push(11)
+	console.log(b,d,a,c)
+
+	/* var _jQuery = window.jQuery,
+		_$ = window.$;
+
+	noConflict: function(deep) {
+		此时的_$和_jQuery都是undefined
+		if (window.$ === jQuery) {
+			window.$ = _$;
+		}
+
+		if (deep && window.jQuery === jQuery) {
+			window.jQuery = _jQuery;
+		}
+
+		return jQuery;
+	},  */
+	
+	//var miaov = $.noConflict(true)这个函数的调用必须在导入jquery之后使用，并且在导入冲突插件前使用，除非jquery是最后一个导入的
+	var miaov = $.noConflict(true)
+	var $ = 123;
+
+	miaov(function(){
+		alert($);
+		// alert( jQuery );
+	});
+</script>
+</head>
+
+<body>
+<div>aaaaa</div>
+<!-- <img src=""> -->
+</body>
+</html>
