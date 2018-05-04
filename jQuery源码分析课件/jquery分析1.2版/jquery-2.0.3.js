@@ -76,7 +76,6 @@ var
 	// Define a local copy of jQuery 参考2.jq构造函数.html
 	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
-		console.log(8888)
 		return new jQuery.fn.init( selector, context, rootjQuery );
 	},
 
@@ -392,8 +391,8 @@ jQuery.extend = jQuery.fn.extend = function() {
 	// extend jQuery itself if only one argument is passed
 	// 看是不是插件情况
 	// $.extend({ aaa : function(){alert(1);},bbb : function(){alert(2);}});
-	if ( length === i ) {
-		target = this;
+	if (length === i) { //只有一个参数，就是对jQuery自身的扩展处理
+		target = this; //其中最重要的一段target = this，通过调用的方式我们就能确实当前的this的指向
 		--i;
 	}
 

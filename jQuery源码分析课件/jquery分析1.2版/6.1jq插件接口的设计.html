@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box1">aaa</div>
+    <script src="jquery-2.0.3.js"></script>
+    <script>
+        //参考https://www.imooc.com/code/3403
+        /* 
+            jQuery插件的开发分为两种：
+            1.一种是挂在jQuery命名空间下的全局函数，也可称为静态方法；
+            2.另一种是jQuery对象级别的方法，即挂在jQuery原型下的方法，这样通过选择器获取的jQuery对象实例也能共享该方法。
+         */
+
+         //从jQuery的源码中可以看到，jQuery.extend和jQuery.fn.extend其实是同指向同一方法的不同引用。 怎么会实现不同的功能呢？这就是this力量了
+        //  fn与jQuery其实是2个不同的对象，在之前有讲解：jQuery.extend 调用的时候，this是指向jQuery对象的(jQuery是函数，也是对象！)，所以这里扩展在jQuery上。而jQuery.fn.extend 调用的时候，this指向fn对象，jQuery.fn 和jQuery.prototype指向同一对象，扩展fn就是扩展jQuery.prototype原型对象。这里增加的是原型方法，也就是对象方法了。所以jQuery的API中提供了以上2个扩展函数。
+
+         //jQuery.extend = jQuery.fn.extend = function(){} 通过传递不同的参数，来实现不同的功能
+
+
+        
+        //这种是扩展到jQuery函数的属性方法，并不是面向对象的方法
+        jQuery.extend({
+            data: function () { alert(1) },
+            removeData: function () { }
+        })
+        
+        //只是扩展到面向对象上的方法，也就是prototype
+        jQuery.fn.extend({
+            data: function () {alert(3) },
+            removeData: function () { }
+        })
+
+        $.data();//1 如果没有写jQuery.extend的扩展方法data则会报错
+        $('.box1').data();//3 如果没有写jQuery.fn的扩展方法data则会报错
+    </script>
+</body>
+</html>
