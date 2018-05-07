@@ -31,12 +31,12 @@ var
 	rootjQuery,
 
 	// The deferred used on DOM ready
-	//**跟dom加载有关
+	//**跟dom加载有关	
 	readyList,
 
 	// Support: IE9
 	// For `typeof xmlNode.method` instead of `xmlNode.method !== undefined`
-	//**结果为："undefined"，用这个是因为在xmlNode.method不存在的情况下不等于undefined，但是用typeof undefined却是一样的
+	//**结果为："undefined"，用这个是因为在xmlNode.method不存在的情况下不等于undefined，但是用typeof undefined却是一样的,if(null == undefined) 为true
 	core_strundefined = typeof undefined,
 
 	// Use the correct document accordingly with window argument (sandbox)
@@ -46,7 +46,7 @@ var
 	docElem = document.documentElement,
 
 	// Map over jQuery in case of overwrite
-	// **这里和下面的_$主要用于防冲突，假如有声明了jQuery，就先把他缓存起来
+	// **这里和下面的_$主要用于防冲突，假如有声明了jQuery，就先把他缓存起来，没有就是undefined
 	_jQuery = window.jQuery,
 
 	// Map over the $ in case of overwrite
@@ -58,7 +58,7 @@ var
 	class2type = {},
 
 	// List of deleted data cache ids, so we can reuse them
-	// **在2.0种没什么用处，低版本是跟数据缓存有关
+	// **在2.0中没什么用处，低版本是跟数据缓存有关，现在只是用于下面缓存数组的一些方法
 	core_deletedIds = [],
 
 	core_version = "2.0.3",
@@ -76,7 +76,6 @@ var
 	// Define a local copy of jQuery 参考2.jq构造函数.html
 	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
-		console.log(8888)
 		return new jQuery.fn.init( selector, context, rootjQuery );
 	},
 

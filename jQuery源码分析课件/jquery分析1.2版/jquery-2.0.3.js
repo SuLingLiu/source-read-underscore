@@ -21,7 +21,7 @@
 // the stack via arguments.caller.callee and Firefox dies if
 // you try to trace through "use strict" call chains. (#13335)
 // Support: Firefox 18+
-//**在严格模式下写代码要非常严格，不然会报错，jq并不推荐写，他会有些问题
+//**在严格模式下写代码要非常严格，不然会报错，jq并不推荐写，他会有些问题，有的低版本浏览器不支持，假死
 //"use strict";
 var
 	// A central reference to the root jQuery(document)
@@ -31,12 +31,12 @@ var
 	rootjQuery,
 
 	// The deferred used on DOM ready
-	//**跟dom加载有关
+	//**跟dom加载有关	
 	readyList,
 
 	// Support: IE9
 	// For `typeof xmlNode.method` instead of `xmlNode.method !== undefined`
-	//**结果为："undefined"，用这个是因为在xmlNode.method不存在的情况下不等于undefined，但是用typeof undefined却是一样的
+	//**结果为："undefined"，用这个是因为在xmlNode.method不存在的情况下不等于undefined，但是用typeof undefined却是一样的,if(null == undefined) 为true
 	core_strundefined = typeof undefined,
 
 	// Use the correct document accordingly with window argument (sandbox)
@@ -46,7 +46,7 @@ var
 	docElem = document.documentElement,
 
 	// Map over jQuery in case of overwrite
-	// **这里和下面的_$主要用于防冲突，假如有声明了jQuery，就先把他缓存起来
+	// **这里和下面的_$主要用于防冲突，假如有声明了jQuery，就先把他缓存起来，没有就是undefined
 	_jQuery = window.jQuery,
 
 	// Map over the $ in case of overwrite
@@ -58,7 +58,7 @@ var
 	class2type = {},
 
 	// List of deleted data cache ids, so we can reuse them
-	// **在2.0种没什么用处，低版本是跟数据缓存有关
+	// **在2.0中没什么用处，低版本是跟数据缓存有关，现在只是用于下面缓存数组的一些方法
 	core_deletedIds = [],
 
 	core_version = "2.0.3",
@@ -391,8 +391,8 @@ jQuery.extend = jQuery.fn.extend = function() {
 	// extend jQuery itself if only one argument is passed
 	// 看是不是插件情况
 	// $.extend({ aaa : function(){alert(1);},bbb : function(){alert(2);}});
-	if (length === i) { //只有一个参数，就是对jQuery自身的扩展处理
-		target = this; //其中最重要的一段target = this，通过调用的方式我们就能确实当前的this的指向
+	if ( length === i ) {
+		target = this;
 		--i;
 	}
 

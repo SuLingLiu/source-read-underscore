@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="aaron">
+        parent
+        <li>child</li>
+    </ul>
+    <script src="jquery-2.0.3.js"></script>
+    <script>
+
+        //$('#aaron').find('li')上有一个prevObject对象，它的作用是记录了$('#aaron')的信息，以便在调用end方法是回到$('#aaron')
+
+        /* 
+            流程解析：
+            1、首先构建一个新的jQuery对象，因为constructor是指向构造器的，所以这里就等同于调用jQuery()方法了，返回了一个新的jQuery对象；
+            2、然后用jQuery.merge语句把elems节点合并到新的jQuery对象上；
+            3、最后给返回的新jQuery对象添加prevObject属性，我们看到prevObject其实还是当前jQuery的一个引用罢了，所以也就是为什么通过prevObject能取到上一个合集的原因了。
+        */
+        $('#aaron').find('li').click(function () {
+            alert(1);
+        }).end().click(function () {
+            alert(2);
+        })
+
+
+        // jQuery.fn.andSelf = jQuery.fn.addBack;
+    </script>
+</body>
+</html>
