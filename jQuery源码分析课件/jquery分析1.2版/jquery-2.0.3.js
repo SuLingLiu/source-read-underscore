@@ -80,11 +80,11 @@ var
 	},
 
 	// Used for matching numbers
+	// 用于匹配数字，包括正数、负数包括小数点、科学计数法，在css方法会使用,source是正则表达式的文本，如下面的"[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)"
 	core_pnum = /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,
-	// 用于匹配数字，包括正数、负数包括小数点、科学计数法，在css方法会使用
 
-	core_rnotwhite = /\S+/g,
 	// Used for splitting on whitespace 分割空格
+	core_rnotwhite = /\S+/g,
 
 	// A simple way to check for HTML strings
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
@@ -93,11 +93,11 @@ var
 	// 匹配<p>aaaa 或 #div1
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
 
-	// Match a standalone tag 匹配一个独立的标签，如：<p></p>  <div></div>
+	// Match a standalone tag 匹配一个独立的标签，如：<p></p>  <div></div> <br />
 	rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
 
 	// Matches dashed string for camelizing
-	// 匹配ie的前缀，如：-webkit-margin-left : webkitMarginLeft，-ms-margin-left : MsMarginLeft，-webkit的形式等形式第一字母不需要大写，但ie的前缀需要大写
+	// 匹配ie的前缀，如：-webkit-margin-left : webkitMarginLeft，-ms-margin-left : MsMarginLeft，-webkit等形式第一字母不需要大写，但ie的前缀需要大写
 	rmsPrefix = /^-ms-/,
 	// 作用于驼峰式-后面的字母转大写,数字的-2d会转2d去掉-
 	rdashAlpha = /-([\da-z])/gi,
@@ -121,7 +121,7 @@ jQuery.fn = jQuery.prototype = {
 	// The current version of jQuery being used 版本
 	jquery: core_version,
 
-	// 修正指向问题，因为写的是简写的方式，覆盖式，所以需要修正
+	// 修正指向问题，因为这里是用 = {}的简写的方式，面向对象自带的constructo被覆盖了，所以需要修正，指向的是对象，不能加引号
 	constructor: jQuery,
 	/**
 	 * [init description]
@@ -171,8 +171,8 @@ jQuery.fn = jQuery.prototype = {
 					context = context instanceof jQuery ? context[0] : context;
 
 					// scripts is true for back-compat
-					// Query.parseHTML转换成节点数组 参考5.jQuery.parseHTML-jQuery.merge.html
-					// jQuery.merge把数组再转换成json
+					// Query.parseHTML转换成节点数组
+					// jQuery.merge把数组再转换成json,带有下标的this对象
 					jQuery.merge( this, jQuery.parseHTML(
 						match[1],
 						context && context.nodeType ? context.ownerDocument || context : document,

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-2.0.3.js"></script>
+</head>
+<body>
+    <script>
+        
+     
+    function init(selector, context, rootjQuery) {
+            var match, elem;
+
+            //==1.先对不正确的进行处理$(""), $(null), $(undefined), $(false)
+            if (!selector) {
+                return this;
+            }
+
+            //==2.处理字符串
+            // $('#div1') $('.box') $('div')  $('#div1 div.box')
+            // $('<li>')  $('<li>1</li><li>2</li>')
+            if (typeof selector === "string") {
+                
+            //==3. 是节点有nodeType，节点没有执行上线文，所以context是自己，处理$(this)  $(document)
+            } else if (selector.nodeType) {
+                
+            //==4.处理函数$(function(){})文档加载 $(function(){}); $(document).ready(function(){});
+            } else if (jQuery.isFunction(selector)) {
+            }
+
+            //==5.$('#div1')  <-  $( $('#div1') )是为了处理$( $('#div1') )这种情况
+            if (selector.selector !== undefined) {
+                this.selector = selector.selector;
+                this.context = selector.context;
+            }
+
+            //==6.处理$([])  $({}) makeArray把类数组转成正真的数组,参考6.jq-makeArray.html
+            return jQuery.makeArray(selector, this);
+        }
+    
+    
+    
+    
+    </script>
+</body>
+</html>

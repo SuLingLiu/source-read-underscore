@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-2.0.3.js"></script>
+</head>
+<body>
+    <script>
+        
+     
+    function init(selector, context, rootjQuery) {
+            var match, elem;
+
+           
+            if (typeof selector === "string") {
+                //判断selector是括号里的形式$('<li>')  $('<li>1</li><li>2</li>'),用于创建标签
+                if() {
+                    match = [null, '<li>', null]; 
+                    match = [null, '<li>1</li><li>2</li>', null];
+
+                //else里是这种形式 $('#div1') $('.box') $('div')  $('#div1 div.box') [$('<div>aaa)]这种形成比较特殊是创建标签，但不会把内容添加到页面，所以要做特殊处理
+                }else {
+                    // 匹配<p>aaaa 或 #div1
+                    rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
+                    match = rquickExpr.exec(selector);
+                    //正则的匹配对应以下三种情况，第一种是匹配不到，第二种是第一个子项没有匹配到所以返回null，而<li>hello的形式正好对应上面的创建标签，
+                    match = null;  //$('.box') $('div')  $('#div1 div.box')
+				    match = ['#div1',null,'div1'];  //$('#div1')，#div1是第二个子项，所以是数组的第三个值，子项的第一个值没有匹配上，所以是null
+				    match = ['<li>hello','<li>',null];  //$('<li>hello')
+                }
+
+                //创建标签和id都不会再传context,id都是唯一的了，不需要再传，能进入的有:  $('<li>')  $('#div1')
+                if(match && (match[1] || !context) {
+
+                    //只有创建标签的能进入
+                    if(match[1]) {
+                        // 这里作用可以写成 $('<li>',document)，也可以创建iframe里的标签$('<li>',contentWindow.document)，但是没什么太大用，下面的处理是因为有可能会输入原生的document或者是$(document),最终得到的都是原生的doucument,document.createElement('li),他并不是指父级，因为document.createElement不用父级
+                        context = context instanceof jQuery ? context[0] : context;
+
+                    //传入id的处理
+                    }else {
+
+                    }
+                }else if() {
+
+                }else {
+
+                }
+            
+            } 
+        }
+    
+    
+    
+    
+    </script>
+</body>
+</html>
