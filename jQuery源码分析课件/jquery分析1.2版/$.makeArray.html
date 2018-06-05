@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script src="jquery-2.0.3.js"></script>
+<script>
+
+
+$(function(){
+	
+	var aDiv = document.getElementsByTagName('div');
+	//$.makeArray()
+	//转成正真的数组后可以调数组的方法，但是我们这要的不是数组是json,所以两个参数是给内部用，第二个参数是josn,就转换成了json,必须要有length
+	// 和merge有很大的关系
+	console.log($.makeArray(aDiv));
+	$.makeArray(aDiv).push();//转化为真正的数组就会有push方法
+	console.log( $.makeArray(aDiv,{length:0}) );//第二个参数是对象，并且有length就转化成对象
+});
+
+</script>
+</head>
+
+<body>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

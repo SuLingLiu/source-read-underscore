@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-2.0.3.js"></script>
+</head>
+<body>
+    <ul>
+        <li class="box">2222</li>
+    </ul>
+    <script>
+    if(true) {  
+    
+
+
+    //以下else if 和 else是为了处理选择器
+    //如：$('ul li.box)
+    //最终会变成$(document).find('ul li.box);通过find实现，find -> sizzle,
+    //rootjQuery就是$(document)
+    //这判断是当不传content时和content有jquery时，通过$(document).find( selector )
+    } else if ( !context || context.jquery ) {
+        return ( context || rootjQuery ).find( selector );
+
+    //如果content存在，如document ,则先需要转化为$(document)对象
+    } else {
+        //相当于这种情况$('li.box', 'ul')
+        //this.constructor( context ) 就是$('ul')
+        return this.constructor( context ).find( selector );
+    }
+    //两个if判断最终的结果就是变为jQuery(document),find();jQuery(document)就是父级的jquery元素
+    
+    </script>
+
+</body>
+</html>

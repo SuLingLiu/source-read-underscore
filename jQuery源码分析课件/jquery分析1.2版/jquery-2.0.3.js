@@ -165,7 +165,7 @@ jQuery.fn = jQuery.prototype = {
 			if ( match && (match[1] || !context) ) {
 				// 进一步判断 : if(){  $('<li>')  }  else {  $('#div1')   }
 
-				// HANDLE: $(html) -> $(array)
+				// HANDLE: $(html) -> $(array) 创建标签
 				if ( match[1] ) {
 					// 这里作用可以写成 $('<li>',document)，也可以创建iframe里的标签$('<li>',contentWindow.document)，但是没什么太大用，下面的处理是因为有可能会输入原生的document或者是$(document),最终得到的都是原生的doucument
 					context = context instanceof jQuery ? context[0] : context;
@@ -180,8 +180,9 @@ jQuery.fn = jQuery.prototype = {
 					) );
 
 					// HANDLE: $(html, props) $('<li></li>',{title : 'hi',html : 'abcd',css : {background:'red'}})
-					// rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/， 匹配一个独立的标签，如：<p></p> ，<div></div>，只针对于<li>或者<li></li>，这样的多标签<li></li><li></li>是不行的，第二参数必须是json
+					// rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/， 匹配一个独立的标签，如：<p></p> ，<div></div>，<img/>只针对于<li>或者<li></li>，这样的多标签<li></li><li></li>是不行的，第二参数必须是json
 					if ( rsingleTag.test( match[1] ) && jQuery.isPlainObject( context ) ) {
+						//for in 循环对象如：,{title : 'hi',html : 'abcd',css : {background:'red'}}
 						for ( match in context ) {
 							// Properties of context are called as methods if possible
 							// 匹配this下是否有html,title等方法，如果有则直接调用
@@ -196,16 +197,16 @@ jQuery.fn = jQuery.prototype = {
 							}
 						}
 					}
-
+					//最后把this返回回去，到这是创建元素
 					return this;
 
-				// HANDLE: $(#id)
+				// HANDLE: $(#id) 处理id
 				} else {
 					elem = document.getElementById( match[2] );
 
 					// Check parentNode to catch when Blackberry 4.6 returns
 					// nodes that are no longer in the document #6963
-					// 在Blackberry 4.6这个浏览器只判断elem存在不行，还需要进一步判断，在克隆节点的时候有这个问题
+					// 在Blackberry 4.6这个浏览器只判断elem存在不行，在克隆节点的时候哪怕这个元素不存在，elem还是存在的，还需要进一步判断他的父级存不存在
 					// 一个原素在页面中存在就一定有父级
 					if ( elem && elem.parentNode ) {
 						// Inject the element directly into the jQuery object
@@ -214,25 +215,20 @@ jQuery.fn = jQuery.prototype = {
 						this[0] = elem;
 					}
 
-					this.context = document;
+					this.context = document;//id是唯一的，没有必要在再在某个元素下找，所以它的父级是doucument
 					this.selector = selector;
 					return this;
 				}
 
 			// HANDLE: $(expr, $(...))
-			// rootjQuery : $(document)  $(document).find('ul li.box');  //find -> sizzle
-			// $('ul',$(document)).find('li');==> jQuery(document).find();
-			// $(document)表示context.jquery为真
 			} else if ( !context || context.jquery ) {
 				return ( context || rootjQuery ).find( selector );
 
 			// HANDLE: $(expr, context)
 			// (which is just equivalent to: $(context).find(expr)
-			// $('ul',document).find('li'); ==> jQuery(document).find();
 			} else {
 				return this.constructor( context ).find( selector );
 			}
-			//以上else if 和else 返回的都是jQuery(document).find();主要是为了处理复杂的选择器，通过find来实现。并处理了原生和jquery的document。
 
 		// HANDLE: $(DOMElement) 处理$(this)  $(document)
 		// 是节点有nodeType，节点没有执行上线文，所以context是自己
@@ -254,8 +250,7 @@ jQuery.fn = jQuery.prototype = {
 			this.selector = selector.selector;
 			this.context = selector.context;
 		}
-
-		// 处理$([])  $({}) makeArray把类数组转成正真的数组,参考6.jq-makeArray.html
+		// 处理$([])  $({}) makeArray把类数组转成正真的数组
 		return jQuery.makeArray( selector, this );
 	},
 
@@ -265,8 +260,7 @@ jQuery.fn = jQuery.prototype = {
 	// The default length of a jQuery object is 0
 	length: 0,
 
-	// 转数组，实例方法只能给jquery对象用，makeArray是工具方法，可以给jquery用，也可以给原生的js用 
-	// 参考7.jq-toArray-get.html
+	// 对象转原生数组， 
 	toArray: function() {
 		return core_slice.call( this );
 	},
@@ -274,7 +268,7 @@ jQuery.fn = jQuery.prototype = {
 	// Get the Nth element in the matched element set OR
 	// Get the whole matched element set as a clean array
 	// 转元素集合 最终转成的还是数组
-	// 参考7.jq-toArray-get.html
+	//不传参，则返回整个原生数组集合，如果传负数则可以从后面往前找，如get(-1)找的是最后一个，get(-2),找的是倒数第二个
 	get: function( num ) {
 		return num == null ?
 
@@ -759,7 +753,7 @@ jQuery.extend({
 		if ( arr != null ) {
 			// Object(arr)这一步的操作是把字符串数字等转成对象，因为isArraylike接受的参数只能是对象
 			// 字符串通过Object转是对象有length,有长度isArraylike就为真
-			if ( isArraylike就为真( Object(arr) ) ) {
+			if ( isArraylike( Object(arr) ) ) {
 				jQuery.merge( ret,
 					typeof arr === "string" ?
 					[ arr ] : arr

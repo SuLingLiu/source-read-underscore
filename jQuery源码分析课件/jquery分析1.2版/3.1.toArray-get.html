@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script src="jquery-2.0.3.js"></script>
+<script>
+
+
+$(function(){
+	console.log($('div'));
+	console.log( $('div').toArray() );
+	
+	//$('div') : { 0 : div , 1 : div , 2 : div , length : 3 }
+	
+	//$('div').toArray() : [div,div,div] 转成数组就可以用数组的方法，里面的值是原生的元素,core_slice.call( this ),core_slice它是[].slice截取，如果不传参数会截取整个数组，call(this),改变this指向，所以将$('div)对象里的值截取了，因为$('div')有下标有length属性，所以可以进行截取
+	
+	//console.log($('div').get());//get()什么都不传返回的是一个转换成原生的数组
+	//get 的参数如果是负数表示从后往前找原素
+	
+	// $('div').get(-1).innerHTML = '222222222';
+	
+	/*for(var i=0;i<$('div').get().length;i++){
+		$('div').get(i).innerHTML = '222222';
+	}
+	*/
+	
+});
+
+</script>
+</head>
+
+<body>
+<div>11111111</div>
+<div>111111111</div>
+<div>111111111</div>
+</body>
+</html>
