@@ -285,15 +285,13 @@ jQuery.fn = jQuery.prototype = {
 	// JQ对象的入栈 队列是先进先出，栈是先进后出，跟进电梯一样
 	// $('div').pushStack( $('span') ).css('background','red').end().css('background','yellow');
 	// $('div').pushStack( $('span') ).css('background','red')此时只有span的背景色变了，div的并未变，要想给div加样式需要先end()
-	// 大都用来内部处理 参考：8.jq-pushStack.html
 	pushStack: function( elems ) {
 		// Build a new jQuery matched element set
-		//  $.merge对外是合并数组，对内还可以合并json,数组和json合并就变成了json了
+		//  $.merge对外是合并数组，对内还可以合并json,数组和json合并就变成了json了,this.constructor()有length，所以可以合成对象
 		var ret = jQuery.merge( this.constructor(), elems );
 
-
 		// Add the old object onto the stack (as a reference)
-		// 这里的this指的是调用这个方法的元素
+		// 这里的this指的是调用这个方法的元素，如$('div').pushStack( $('span') )指的就是$('div')，为了使用end返回到$('div')
 		ret.prevObject = this;
 		ret.context = this.context;
 
@@ -315,7 +313,7 @@ jQuery.fn = jQuery.prototype = {
 
 		return this;
 	},
-
+	//把截取的原始放到栈中，再用end回退到上一级$('div').slice(1,3).css('background','red').end().css('color','blue');一开始只有div(1,3)的背景是红色的，用了end以后字体才都变为蓝色
 	slice: function() {
 		return this.pushStack( core_slice.apply( this, arguments ) );
 	},
@@ -343,6 +341,7 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	end: function() {
+		//返回的上一级选择的元素
 		return this.prevObject || this.constructor(null);
 	},
 
