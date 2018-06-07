@@ -333,7 +333,7 @@ jQuery.fn = jQuery.prototype = {
 		return this.pushStack( j >= 0 && j < len ? [ this[j] ] : [] );
 	},
 
-	//map是对集合的二次处理
+	//map是对集合的二次处理.将一个数组中的所有元素转换到另一个数组中
 	map: function( callback ) {
 		return this.pushStack( jQuery.map(this, function( elem, i ) {
 			return callback.call( elem, i, elem );
@@ -355,11 +355,11 @@ jQuery.fn = jQuery.prototype = {
 // Give the init function the jQuery prototype for later instantiation
 jQuery.fn.init.prototype = jQuery.fn;
 
-// 参考：9.jq-extend.html
+//jQuery.extend对象的工具方法，jQuery.fn.extend对象的实例方法
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		//目标元素是第一个参数
-		target = arguments[0] || {},
+		target = arguments[0] || {},//第一个参数为假则默认{}
 		i = 1,
 		length = arguments.length,
 		//默认是浅拷贝
@@ -382,7 +382,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 	}
 
 	// extend jQuery itself if only one argument is passed
-	// 看是不是插件情况
+	// 看是不是插件情况，是插件扩展都的就是this身上
 	// $.extend({ aaa : function(){alert(1);},bbb : function(){alert(2);}});
 	if ( length === i ) {
 		target = this;
@@ -392,7 +392,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 	// 可能有多个对象情况
 	for ( ; i < length; i++ ) {
 		// Only deal with non-null/undefined values
-		// 看一下后面的对象是否都有值
+		// 看一下后面的对象是否都有值，如果没值没必要循环
 		if ( (options = arguments[ i ]) != null ) {
 			// Extend the base object
 			for ( name in options ) {
@@ -434,7 +434,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 	return target;
 };
 
-// 参考：10.jq-jQuery.extend扩展插件.html
+//扩展工具方法
 jQuery.extend({
 	// Unique for each copy of jQuery on the page
 	// 生成唯一JQ字符串(内部)，作用是每次都是唯一的，具备唯一性
