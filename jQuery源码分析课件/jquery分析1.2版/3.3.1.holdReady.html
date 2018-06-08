@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-2.0.3.js"></script>
+</head>
+<body>
+    <script>
+
+        /* //如果用了这个会推迟DOM触发，参数传true
+        $.holdReady(true);
+        $(function() {
+            alert(1)
+        })
+        //如果要触发上面的函数，需要再次调用，参数传false
+        $.holdReady(false); */
+
+        //主要用在，当一个js文件加载完，才触发dom加载完成,如下希望先等a.js加载完，再触发dom加载完成
+        /* $.getScript('a.js', function() {
+            alert(2)
+        })
+         $(function() {
+            alert(1)
+        }) */
+        
+        //==== 解决办法，多个的时候，要多次分开写
+        $.holdReady(true);
+        $.getScript('a.js', function() {
+            alert(2)
+            $.holdReady(false);
+        })
+
+        $.holdReady(true);
+        $.getScript('b.js', function() {
+            alert(2)
+            $.holdReady(false);
+        })
+
+         $(function() {
+            alert(1)
+        })
+        
+    </script>
+</body>
+</html>

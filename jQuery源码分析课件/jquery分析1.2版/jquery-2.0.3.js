@@ -478,7 +478,7 @@ jQuery.extend({
 	ready: function( wait ) {
 
 		// Abort if there are pending holds or we're already ready
-		// 当不传参数时，走jQuery.isReady，默认是false进来一次
+		// 当不传参数时，走jQuery.isReady，默认是false进来一次，wait 为true，也只有readyWait = 0时，才会继续往下走
 		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
 			return;
 		}
@@ -487,6 +487,7 @@ jQuery.extend({
 		jQuery.isReady = true;
 
 		// If a normal DOM Ready event fired, decrement, and wait if need be
+		//如果等待的次数--还是大于0，继续等待
 		if ( wait !== true && --jQuery.readyWait > 0 ) {
 			return;
 		}
@@ -966,7 +967,7 @@ jQuery.extend({
 });
 
 jQuery.ready.promise = function( obj ) {
-	//readyList一开始是未定义可以进来，进来后不能再进来，只要一次加载成功，后续的都能触发
+	//readyList一开始是未定义可以进来，进来后不能再进来，只要一次加载成功，后续如果再加载都能触发，不需要再进去,意思是你调用多次，只有第一次会进去
 	if ( !readyList ) {
 
 		readyList = jQuery.Deferred();
@@ -984,7 +985,7 @@ jQuery.ready.promise = function( obj ) {
 		} else {
 
 			// Use the handy event callback
-			// 为什么要监测两个，DOMContentLoaded高于load,之所以写来两个是因为有些浏览器对load有缓存，如果有缓存会先触发load,再触发DOMContentLoaded，为了保证第一时间走最快的DOM加载所以写了两个，两个都写了在completed里会移除时间只会调一个
+			// 为什么要监测两个，DOMContentLoaded先于load的触发,之所以写来两个是因为有些浏览器对load有缓存，如果有缓存会先触发load,再触发DOMContentLoaded，为了保证第一时间走最快的DOM加载所以写了两个，两个都写了在completed里会移除时间只会调一个
 			document.addEventListener( "DOMContentLoaded", completed, false );
 
 			// A fallback to window.onload, that will always work
