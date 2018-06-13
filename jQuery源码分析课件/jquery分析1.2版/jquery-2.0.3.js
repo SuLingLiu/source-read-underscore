@@ -507,12 +507,12 @@ jQuery.extend({
 	// See test/unit/core.js for details concerning isFunction.
 	// Since version 1.3, DOM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
-	// 是否为函数,低版本ie内置的函数如alert,它返回的是object
+	// 是否为函数,低版本ie内置的函数如alert,它返回的是object，用typeof判断也是这样，没有做兼容处理
 	isFunction: function( obj ) {
 		return jQuery.type(obj) === "function";
 	},
 
-	//是否为数组，这个是es5自带的方法，高版本都支持这个
+	//是否为数组，这个是es5自带的方法，高版本都支持这个，原生Array.isArray([])
 	isArray: Array.isArray,
 
 	//判断是不是window
@@ -522,13 +522,15 @@ jQuery.extend({
 	},
 
 	//判断是不是数字，isFinite( obj )判断数字是否为有限的
+	//Number.MAX_VALUE 计算机能计算的最大值
+	//alert( isFinite( Number.MAX_VALUE + Number.MAX_VALUE ) );	
 	isNumeric: function( obj ) {
 		return !isNaN( parseFloat(obj) ) && isFinite( obj );
 	},
 
 	//判断数据类型，可以判断很多的类型
 	type: function( obj ) {
-		if ( obj == null ) {
+		if ( obj == null ) {//null==null，undefined==null都为true
 			return String( obj );//type最终传回去的都是字符串，所以这里用了String方法
 		}
 		// Support: Safari <= 5.1 (functionish RegExp)
@@ -547,6 +549,7 @@ jQuery.extend({
 		// - Any object or value whose internal [[Class]] property is not "[object Object]"
 		// - DOM nodes
 		// - window
+		//首先判断不是对象的，不是元素节点，不是window对象
 		if ( jQuery.type( obj ) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
 			return false;
 		}
@@ -556,7 +559,8 @@ jQuery.extend({
 		// the "constructor" property of certain host objects, ie. |window.location|
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=814622
 		// core_hasOwn = class2type.hasOwnProperty
-		// isPrototypeOf是object的方法
+		// isPrototypeOf是object原型链上的一个的方法，其它的对象都是通过原型链查找到object上的
+		//isPrototypeOf需要再查资料
 		try {
 			//要过滤window.location
 			if ( obj.constructor &&
@@ -574,7 +578,7 @@ jQuery.extend({
 
 	//判断是否是空对象，空数组，空的面向对象
 	//for in的特点，是系统自带的是for in不带的，只有自己写的才可以
-	//function Aaa(){};Aaa.prototype.constructor = Aaa;Aaa.prototype.show = function(){};for( var attr in Aaa.prototype ){alert(attr);}
+	//function Aaa(){};Aaa.prototype.constructor = Aaa;Aaa.prototype.show = function(){};for( var attr in Aaa.prototype ){alert(attr);}，constructor是for in不到的
 	//可以去查看资料，设置系统属性是有四个属性，有一个属性是控制是否能for in到
 	isEmptyObject: function( obj ) {
 		var name;
