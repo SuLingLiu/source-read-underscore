@@ -588,7 +588,7 @@ jQuery.extend({
 		return true;
 	},
 
-	// 抛出异常
+	// 抛出异常，主要用于开发，纠错
 	error: function( msg ) {
 		throw new Error( msg );
 	},
@@ -596,42 +596,42 @@ jQuery.extend({
 	// data: string of html
 	// context (optional): If specified, the fragment will be created in this context, defaults to document
 	// keepScripts (optional): If true, will include scripts passed in the html string
-	// 解析节点 字符串转化为节点
-	// 参数一：字符串数据，二：父节点如document,keepScripts是否允许创建script标签，返回数组
+	// 解析节点 字符串转化为节点 '<li></li><li></li><script><\/script>' => [li,li]
+	// 参数一：字符串数据，二：父节点如document,keepScripts是否允许创建script标签true可以创建false会过滤，返回数组
 	// '<li></li><li></li><script><\/script>'
 	parseHTML: function( data, context, keepScripts ) {
 		//data必须是字符串
 		if ( !data || typeof data !== "string" ) {
 			return null;
 		}
-		//在少参情况下的处理
+		//在少参情况下的处理，只传2个参数，第二个是布尔值
 		if ( typeof context === "boolean" ) {
 			keepScripts = context;
 			context = false;
 		}
-		context = context || document;
+		context = context || document;//默认是document
 
 		//rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/ 只针对于<li>或者<li></li>，这样的多标签<li></li><li></li>是不行的,单标签的形式比较简单
 		var parsed = rsingleTag.exec( data ),
-			scripts = !keepScripts && [];
+			scripts = !keepScripts && [];//keepScripts为假的时候scripts = [],为真的时候=false
 
 		// Single tag 针对单标签
 		if ( parsed ) {
 			return [ context.createElement( parsed[1] ) ];
 		}
 
-		//多标签会走这个方法，利用文档碎片来创建
+		//多标签会走这个方法，利用文档碎片来创建,提高性能
 		parsed = jQuery.buildFragment( [ data ], context, scripts );
 
 		if ( scripts ) {
 			jQuery( scripts ).remove();
 		}
 
-		//得到的parsed.childNodes不是数组，所以要进行处理
+		//得到的parsed.childNodes不是数组，所以要进行处理，下面是转成数组
 		return jQuery.merge( [], parsed.childNodes );
 	},
 
-	//JSON.parse和eval eval能解析任何的字符串，安全性能差，parse只能解析json数组类型的
+	//JSON.parse和eval eval能解析任何的字符串，安全性能差，parse只能解析json、数组类型的严格字符串
 	parseJSON: JSON.parse,
 
 	// Cross-browser xml parsing
@@ -655,13 +655,13 @@ jQuery.extend({
 		return xml;
 	},
 
-	//空函数
+	//空函数，用于默认参数，一般用不上
 	noop: function() {},
 
 	// Evaluates a script in a global context 将局部变量解析为全局变量
 	globalEval: function( code ) {
 		var script,
-				indirect = eval;
+			indirect = eval;
 
 		code = jQuery.trim( code );
 
@@ -690,7 +690,7 @@ jQuery.extend({
 		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
 	},
 
-	//内部方法 判断elem的节点名是不是name
+	//内部方法 判断elem的节点名是不是name, 用法$.nodeName(document.body, 'body');如果是对应的标签会返回true
 	nodeName: function( elem, name ) {
 		return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 	},

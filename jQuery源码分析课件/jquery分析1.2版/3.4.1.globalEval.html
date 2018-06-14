@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-2.0.3.js"></script>
+</head>
+<body>
+    <script>
+        function test(){
+            //此方法的表现不同于正常使用的JavaScript eval()，因为它是在全局上下文下执行（这对加载外部动态脚本很重要）。
+            jQuery.globalEval("var newVar = true;")
+            var a = 1;
+        }
+        test();
+        // console.log(a); 在外面访问函数里的声明的变量会报错
+        console.log(newVar);//如果用了jQuery.globalEval则可以在外面访问
+
+
+        //window.eval已经声明一个eval变量与直接使用eval的区别，eval是一个关键字也是window的一个属性，如果直接用eval()这样是使用的是关键字是局部的，前者则是全局的
+        function test1(){
+            
+            var val = eval;
+            
+            val('var a = 1');//声明eval和用window.eval这样调用是全局的
+            // eval('var a = 1'); 直接这样写是局部的，在函数外调用，会报错
+            
+        }
+
+        test1();
+
+        alert( a );
+
+        var script = document.createElement("script");
+				script.text = 'var dd = 1';
+				document.head.appendChild( script ).parentNode.removeChild( script );
+        
+    </script>
+</body>
+</html>
